@@ -39,5 +39,17 @@ namespace NGANHANG
             Nhom.Text = "; Nhóm: " + Program.mGroup;
 
         }
+
+        private void btnNhanVien_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form frm = this.CheckExists(typeof(frmNV));
+            if (frm != null) frm.Activate();
+            else
+            {
+                frmNV f = new frmNV();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
     }
 }
