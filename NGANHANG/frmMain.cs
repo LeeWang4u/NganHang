@@ -51,5 +51,17 @@ namespace NGANHANG
                 f.Show();
             }
         }
+
+        private void btnGuiRutTien_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form frm = this.CheckExists(typeof(frmGiaoDich));
+            if (frm != null) frm.Activate();
+            else
+            {
+                frmGiaoDich f = new frmGiaoDich();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
     }
 }

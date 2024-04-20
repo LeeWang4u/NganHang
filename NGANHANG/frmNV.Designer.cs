@@ -46,6 +46,7 @@ namespace NGANHANG
             System.Windows.Forms.Label label7;
             System.Windows.Forms.Label label8;
             System.Windows.Forms.Label label9;
+            System.Windows.Forms.Label trangThaiXoaLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmNV));
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.bar1 = new DevExpress.XtraBars.Bar();
@@ -91,6 +92,7 @@ namespace NGANHANG
             this.sODTTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.mACNComboBox = new System.Windows.Forms.ComboBox();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
+            this.txbTrangThaiXoa = new DevExpress.XtraEditors.SpinEdit();
             this.txtChiNhanh = new System.Windows.Forms.ComboBox();
             this.txtSDT = new DevExpress.XtraEditors.TextEdit();
             this.cmbGioiTinh = new System.Windows.Forms.ComboBox();
@@ -99,6 +101,10 @@ namespace NGANHANG
             this.txtTen = new DevExpress.XtraEditors.TextEdit();
             this.txtHo = new DevExpress.XtraEditors.TextEdit();
             this.txtMaNV = new DevExpress.XtraEditors.TextEdit();
+            this.bdsGD_GUIRUT = new System.Windows.Forms.BindingSource(this.components);
+            this.gD_GOIRUTTableAdapter = new NGANHANG.DSTableAdapters.GD_GOIRUTTableAdapter();
+            this.bdsGD_CHUYENTIEN = new System.Windows.Forms.BindingSource(this.components);
+            this.gD_CHUYENTIENTableAdapter = new NGANHANG.DSTableAdapters.GD_CHUYENTIENTableAdapter();
             mANVLabel = new System.Windows.Forms.Label();
             hOLabel = new System.Windows.Forms.Label();
             tENLabel = new System.Windows.Forms.Label();
@@ -115,6 +121,7 @@ namespace NGANHANG
             label7 = new System.Windows.Forms.Label();
             label8 = new System.Windows.Forms.Label();
             label9 = new System.Windows.Forms.Label();
+            trangThaiXoaLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
@@ -132,12 +139,15 @@ namespace NGANHANG
             ((System.ComponentModel.ISupportInitialize)(this.sODTTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             this.panelControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txbTrangThaiXoa.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSDT.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDiaChi.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCMND.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtTen.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHo.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMaNV.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsGD_GUIRUT)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsGD_CHUYENTIEN)).BeginInit();
             this.SuspendLayout();
             // 
             // mANVLabel
@@ -242,7 +252,7 @@ namespace NGANHANG
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(641, 100);
+            label5.Location = new System.Drawing.Point(662, 92);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(55, 17);
             label5.TabIndex = 30;
@@ -283,6 +293,15 @@ namespace NGANHANG
             label9.Size = new System.Drawing.Size(95, 17);
             label9.TabIndex = 23;
             label9.Text = "Mã Nhân Viên:";
+            // 
+            // trangThaiXoaLabel
+            // 
+            trangThaiXoaLabel.AutoSize = true;
+            trangThaiXoaLabel.Location = new System.Drawing.Point(662, 159);
+            trangThaiXoaLabel.Name = "trangThaiXoaLabel";
+            trangThaiXoaLabel.Size = new System.Drawing.Size(105, 17);
+            trangThaiXoaLabel.TabIndex = 38;
+            trangThaiXoaLabel.Text = "Trang Thai Xoa:";
             // 
             // barManager1
             // 
@@ -351,6 +370,7 @@ namespace NGANHANG
             this.btnHieuChinh.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnHieuChinh.ImageOptions.LargeImage")));
             this.btnHieuChinh.Name = "btnHieuChinh";
             this.btnHieuChinh.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            this.btnHieuChinh.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnHieuChinh_ItemClick);
             // 
             // btnLuu
             // 
@@ -370,6 +390,7 @@ namespace NGANHANG
             this.btnPhucHoi.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnPhucHoi.ImageOptions.LargeImage")));
             this.btnPhucHoi.Name = "btnPhucHoi";
             this.btnPhucHoi.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            this.btnPhucHoi.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPhucHoi_ItemClick);
             // 
             // btnTaiLai
             // 
@@ -379,6 +400,7 @@ namespace NGANHANG
             this.btnTaiLai.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnTaiLai.ImageOptions.LargeImage")));
             this.btnTaiLai.Name = "btnTaiLai";
             this.btnTaiLai.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            this.btnTaiLai.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnTaiLai_ItemClick);
             // 
             // btnChuyenChiNhanh
             // 
@@ -397,6 +419,7 @@ namespace NGANHANG
             this.btnThoat.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnThoat.ImageOptions.LargeImage")));
             this.btnThoat.Name = "btnThoat";
             this.btnThoat.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            this.btnThoat.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnThoat_ItemClick);
             // 
             // bar3
             // 
@@ -416,15 +439,15 @@ namespace NGANHANG
             this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
             this.barDockControlTop.Manager = this.barManager1;
-            this.barDockControlTop.Size = new System.Drawing.Size(1043, 30);
+            this.barDockControlTop.Size = new System.Drawing.Size(1092, 30);
             // 
             // barDockControlBottom
             // 
             this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 598);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 1018);
             this.barDockControlBottom.Manager = this.barManager1;
-            this.barDockControlBottom.Size = new System.Drawing.Size(1043, 20);
+            this.barDockControlBottom.Size = new System.Drawing.Size(1092, 20);
             // 
             // barDockControlLeft
             // 
@@ -432,15 +455,15 @@ namespace NGANHANG
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.barDockControlLeft.Location = new System.Drawing.Point(0, 30);
             this.barDockControlLeft.Manager = this.barManager1;
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 568);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 988);
             // 
             // barDockControlRight
             // 
             this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(1043, 30);
+            this.barDockControlRight.Location = new System.Drawing.Point(1092, 30);
             this.barDockControlRight.Manager = this.barManager1;
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 568);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 988);
             // 
             // panelControl1
             // 
@@ -449,7 +472,7 @@ namespace NGANHANG
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(0, 30);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1043, 67);
+            this.panelControl1.Size = new System.Drawing.Size(1092, 67);
             this.panelControl1.TabIndex = 4;
             this.panelControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.panelControl1_Paint);
             // 
@@ -480,7 +503,7 @@ namespace NGANHANG
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl2.Location = new System.Drawing.Point(0, 97);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(1043, 285);
+            this.panelControl2.Size = new System.Drawing.Size(1092, 285);
             this.panelControl2.TabIndex = 5;
             // 
             // splitterControl1
@@ -499,7 +522,7 @@ namespace NGANHANG
             this.gcNhanVien.MainView = this.gridView1;
             this.gcNhanVien.MenuManager = this.barManager1;
             this.gcNhanVien.Name = "gcNhanVien";
-            this.gcNhanVien.Size = new System.Drawing.Size(1039, 281);
+            this.gcNhanVien.Size = new System.Drawing.Size(1088, 281);
             this.gcNhanVien.TabIndex = 0;
             this.gcNhanVien.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -625,10 +648,12 @@ namespace NGANHANG
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.ChiNhanhTableAdapter = null;
             this.tableAdapterManager.GD_CHUYENTIENTableAdapter = null;
             this.tableAdapterManager.GD_GOIRUTTableAdapter = null;
             this.tableAdapterManager.KhachHangTableAdapter = null;
             this.tableAdapterManager.NhanVienTableAdapter = this.nhanVienTableAdapter;
+            this.tableAdapterManager.TaiKhoanTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = NGANHANG.DSTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // mANVTextEdit
@@ -706,6 +731,8 @@ namespace NGANHANG
             // 
             // panelControl3
             // 
+            this.panelControl3.Controls.Add(trangThaiXoaLabel);
+            this.panelControl3.Controls.Add(this.txbTrangThaiXoa);
             this.panelControl3.Controls.Add(label2);
             this.panelControl3.Controls.Add(this.txtChiNhanh);
             this.panelControl3.Controls.Add(label3);
@@ -725,8 +752,24 @@ namespace NGANHANG
             this.panelControl3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl3.Location = new System.Drawing.Point(0, 382);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(1043, 216);
+            this.panelControl3.Size = new System.Drawing.Size(1092, 636);
             this.panelControl3.TabIndex = 27;
+            // 
+            // txbTrangThaiXoa
+            // 
+            this.txbTrangThaiXoa.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsNhanVien, "TrangThaiXoa", true));
+            this.txbTrangThaiXoa.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.txbTrangThaiXoa.Location = new System.Drawing.Point(773, 156);
+            this.txbTrangThaiXoa.MenuManager = this.barManager1;
+            this.txbTrangThaiXoa.Name = "txbTrangThaiXoa";
+            this.txbTrangThaiXoa.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.txbTrangThaiXoa.Size = new System.Drawing.Size(125, 24);
+            this.txbTrangThaiXoa.TabIndex = 39;
             // 
             // txtChiNhanh
             // 
@@ -759,7 +802,7 @@ namespace NGANHANG
             // txtDiaChi
             // 
             this.txtDiaChi.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsNhanVien, "DIACHI", true));
-            this.txtDiaChi.Location = new System.Drawing.Point(704, 97);
+            this.txtDiaChi.Location = new System.Drawing.Point(725, 89);
             this.txtDiaChi.MenuManager = this.barManager1;
             this.txtDiaChi.Name = "txtDiaChi";
             this.txtDiaChi.Size = new System.Drawing.Size(326, 22);
@@ -801,11 +844,29 @@ namespace NGANHANG
             this.txtMaNV.Size = new System.Drawing.Size(149, 22);
             this.txtMaNV.TabIndex = 25;
             // 
+            // bdsGD_GUIRUT
+            // 
+            this.bdsGD_GUIRUT.DataMember = "FK_GD_GOIRUT_NhanVien";
+            this.bdsGD_GUIRUT.DataSource = this.bdsNhanVien;
+            // 
+            // gD_GOIRUTTableAdapter
+            // 
+            this.gD_GOIRUTTableAdapter.ClearBeforeFill = true;
+            // 
+            // bdsGD_CHUYENTIEN
+            // 
+            this.bdsGD_CHUYENTIEN.DataMember = "FK_GD_CHUYENTIEN_NhanVien";
+            this.bdsGD_CHUYENTIEN.DataSource = this.bdsNhanVien;
+            // 
+            // gD_CHUYENTIENTableAdapter
+            // 
+            this.gD_CHUYENTIENTableAdapter.ClearBeforeFill = true;
+            // 
             // frmNV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1043, 618);
+            this.ClientSize = new System.Drawing.Size(1092, 1038);
             this.Controls.Add(this.panelControl3);
             this.Controls.Add(mACNLabel);
             this.Controls.Add(this.mACNComboBox);
@@ -851,12 +912,15 @@ namespace NGANHANG
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
             this.panelControl3.ResumeLayout(false);
             this.panelControl3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txbTrangThaiXoa.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSDT.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDiaChi.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCMND.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtTen.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHo.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMaNV.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsGD_GUIRUT)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsGD_CHUYENTIEN)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -916,5 +980,10 @@ namespace NGANHANG
         private DevExpress.XtraEditors.TextEdit txtMaNV;
         private DevExpress.XtraEditors.SplitterControl splitterControl1;
         private DevExpress.XtraBars.BarButtonItem btnChuyenChiNhanh;
+        private System.Windows.Forms.BindingSource bdsGD_GUIRUT;
+        private DSTableAdapters.GD_GOIRUTTableAdapter gD_GOIRUTTableAdapter;
+        private System.Windows.Forms.BindingSource bdsGD_CHUYENTIEN;
+        private DSTableAdapters.GD_CHUYENTIENTableAdapter gD_CHUYENTIENTableAdapter;
+        private DevExpress.XtraEditors.SpinEdit txbTrangThaiXoa;
     }
 }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using System.Collections;
 
 namespace NGANHANG
 {
@@ -20,105 +21,10 @@ namespace NGANHANG
         string macn = "";   //Dùng cho btnThem.
         int check_Luu_HieuChinh = 0;    // Nếu chọn btnThem thì ta gán = 1, nếu btnHieuChinh thì ta gán = 2. Mục đích là để biết ta chọn btnThem hay không để chạy SP kiểm tra mã nv bị trùng.
         private SqlDataReader checkMaNV;
+        string maxMaNV = "";
 
-        private bool kiemTraDuLieuDauVao()
-        {
-            /*kiem tra txtMANV*/
-            if (txtMaNV.Text == "")
-            {
-                MessageBox.Show("Không bỏ trống mã nhân viên", "Thông báo", MessageBoxButtons.OK);
-                txtMaNV.Focus();
-                return false;
-            }
+        Stack undoList = new Stack();
 
-
-            if (Regex.IsMatch(txtMaNV.Text, @"^[a-zA-Z0-9]+$") == false)
-            {   
-                MessageBox.Show("Mã nhân viên chỉ chấp nhận số và chữ cái", "Thông báo", MessageBoxButtons.OK);
-                txtMaNV.Text = Regex.Replace(txtMaNV.Text, @"\s+", "");
-                txtMaNV.Focus();
-                return false;
-            }
-            /*kiem tra txtHO*/
-            if (txtHo.Text == "")
-            {
-                MessageBox.Show("Không bỏ trống họ và tên", "Thông báo", MessageBoxButtons.OK);
-                txtHo.Focus();
-                return false;
-            }
-            //"^[0-9A-Za-z ]+$"
-            if (Regex.IsMatch(txtHo.Text, @"^[A-Za-z ]+$") == false)
-            {
-                MessageBox.Show("Họ của người chỉ có chữ cái và khoảng trắng", "Thông báo", MessageBoxButtons.OK);
-                txtHo.Focus();
-                return false;
-            }
-            if (txtHo.Text.Length > 40)
-            {
-                MessageBox.Show("Họ không thể lớn hơn 40 kí tự", "Thông báo", MessageBoxButtons.OK);
-                txtHo.Focus();
-                return false;
-            }
-            /*kiem tra txtTEN*/
-            if (txtTen.Text == "")
-            {
-                MessageBox.Show("Không bỏ trống họ và tên", "Thông báo", MessageBoxButtons.OK);
-                txtTen.Focus();
-                return false;
-            }
-
-            if (Regex.IsMatch(txtTen.Text, @"^[a-zA-Z ]+$") == false)
-            {
-                MessageBox.Show("Tên người chỉ có chữ cái và khoảng trắng", "Thông báo", MessageBoxButtons.OK);
-                txtTen.Focus();
-                return false;
-            }
-
-            if (txtTen.Text.Length > 40)
-            {
-                MessageBox.Show("Tên không thể lớn hơn 40 kí tự", "Thông báo", MessageBoxButtons.OK);
-                txtTen.Focus();
-                return false;
-            }
-            /*kiem tra txtDIACHI*/
-            if (txtDiaChi.Text == "")
-            {
-                MessageBox.Show("Không bỏ trống địa chỉ", "Thông báo", MessageBoxButtons.OK);
-                txtDiaChi.Focus();
-                return false;
-            }
-
-            if (Regex.IsMatch(txtDiaChi.Text, @"^[a-zA-Z0-9, ]+$") == false)
-            {
-                MessageBox.Show("Địa chỉ chỉ chấp nhận chữ cái, số và khoảng trắng", "Thông báo", MessageBoxButtons.OK);
-                txtDiaChi.Focus();
-                return false;
-            }
-
-            if (txtDiaChi.Text.Length > 100)
-            {
-                MessageBox.Show("Không bỏ trống địa chỉ", "Thông báo", MessageBoxButtons.OK);
-                txtDiaChi.Focus();
-                return false;
-            }
-
-            if (Regex.IsMatch(txtCMND.Text, @"^[0-9]+$") == false)
-            {
-                MessageBox.Show("CMND chỉ nhận số", "Thông báo", MessageBoxButtons.OK);
-                txtCMND.Focus();
-                return false;
-            }
-
-            if (Regex.IsMatch(txtSDT.Text, @"^[0-9]+$") == false)
-            {
-                MessageBox.Show("SDT chỉ nhận số", "Thông báo", MessageBoxButtons.OK);
-                txtSDT.Focus();
-                return false;
-            }
-
-
-            return true;
-        }
 
 
         public frmNV()
@@ -126,21 +32,95 @@ namespace NGANHANG
             InitializeComponent();
         }
 
+
+        // btnxoa
         private void barButtonItem2_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            String tenNV = ((DataRowView)bdsNhanVien[bdsNhanVien.Position])["MANV"].ToString();
+            if (tenNV == Program.username)
+            {
+                MessageBox.Show("Không thể xóa chính tài khoản đang đăng nhập", "Thông báo", MessageBoxButtons.OK);
+                return;
+            }
+            Int32 manv = 0;
+            if (bdsGD_CHUYENTIEN.Count > 0)
+            {
+                MessageBox.Show("Không thể xóa nhân viên này vì đã lập GIAO DỊCH CHUYỂN TIỀN", "",
+                    MessageBoxButtons.OK);
+                return;
+            }
+            if (bdsGD_GUIRUT.Count > 0)
+            {
+                MessageBox.Show("Không thể xóa nhân viên này vì đã lập GIAO DỊCH GỬI RÚT", "",
+                    MessageBoxButtons.OK);
+                return;
+            }
 
-        }
+            string cauTruyVanHoanTac =
+                string.Format("INSERT INTO DBO.NHANVIEN( [MANV],[HO],[TEN],[CMND],[DIACHI],[PHAI],[SODT],[MACN],[TrangThaiXoa])" +
+            "VALUES('{0}','{1}','{2}','{3}','{4}', '{5}','{6}', '{7}',{8})", txtMaNV.Text, txtHo.Text, txtTen.Text,txtCMND.Text, txtDiaChi.Text, cmbGioiTinh.Text, txtSDT.Text, macn, "0");
 
-        private void label1_Click(object sender, EventArgs e)
-        {
+            Console.WriteLine(cauTruyVanHoanTac);
+            undoList.Push(cauTruyVanHoanTac);
+            btnPhucHoi.Enabled = true;
+
+            if (MessageBox.Show("Bạn có thật sự muốn xóa nhân viên này ??", "Xác nhận",
+                MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                try
+                {
+                    vitri = bdsNhanVien.Position;
+                   // manv = int.Parse(((DataRowView)bdsNhanVien[bdsNhanVien.Position])["MANV"].ToString());  // Giữ lại mã nhân viên hiện tại đang đứng để nếu xóa ở máy hiện tại thành công mà xóa ở CSDL thất bại thì ta sẽ fill data về lại máy và nhờ manv đó thì con trỏ nó sẽ nhảy đến manv vừa xóa.
+                    bdsNhanVien.RemoveCurrent();  // Xóa trên máy hiện tại trước, sau đó mới xóa trên CSDL sau.
+                    this.nhanVienTableAdapter.Connection.ConnectionString = Program.connstr;
+                    this.nhanVienTableAdapter.Update(this.DS.NhanVien); // xóa dữ liệu đó ở CSDL.
+
+                 /*   try
+                    {   
+                        Program.ExecSqlNonQuery($"EXEC sp_xoa_tai_khoan_nhan_vien '{manv}'");
+                    }
+                    catch {
+                        Console.WriteLine(manv);
+                    }
+                 */
+                    // Gọi sp xóa tài khoản login nếu có
+                }
+                catch (Exception ex)    // Trong thực tế sẽ có lỗi phát sinh mà thầy Thư cũng không biết.
+                {
+                    Console.WriteLine(manv);
+                    Console.WriteLine(vitri);
+                    MessageBox.Show("Lỗi xóa nhân viên. Bạn hãy xóa lại\n" + ex.Message, "",
+                        MessageBoxButtons.OK);
+                    this.nhanVienTableAdapter.Fill(this.DS.NhanVien);   // Trường hợp xóa ở máy hiện tạo thành công nhưng xóa trên CSDL bị lỗi thì ta phải tải về lại máy hiện tại.
+                                                                        // bdsNhanVien.Position = bdsNhanVien.Find("MANV", manv); // đưa con trỏ nhảy đến vị trí manv đã xóa thất bại trước đó.
+                    bdsNhanVien.Position = vitri;
+                    return;
+                }
+            }
+            else
+            {
+                undoList.Pop();
+            }
+            if (bdsNhanVien.Count == 0) btnXoa.Enabled = false;   // trường hợp ta xóa hết nhân viên hoặc trong Grid không có ai thì ta làm mờ nút xóa đi. Nếu không nó sẽ báo lỗi ở dòng code 102 là khi ta lấy manv trước khi xóa ra thì bdsNV.Position không tìm thấy vị trí nào thì nó báo lỗi.
+
+
 
         }
 
        
+       
 
         private void frmNV_Load(object sender, EventArgs e)
         {
+            
             DS.EnforceConstraints = false; // bỏ kiểm tra khóa ngoại STK.
+            // TODO: This line of code loads data into the 'DS.GD_GOIRUT' table. You can move, or remove it, as needed.
+            this.gD_GOIRUTTableAdapter.Connection.ConnectionString = Program.connstr;
+            this.gD_GOIRUTTableAdapter.Fill(this.DS.GD_GOIRUT);
+            // TODO: This line of code loads data into the 'DS.GD_CHUYENTIEN' table. You can move, or remove it, as needed.
+            this.gD_CHUYENTIENTableAdapter.Connection.ConnectionString = Program.connstr;
+            this.gD_CHUYENTIENTableAdapter.Fill(this.DS.GD_CHUYENTIEN);
+            
             // TODO: This line of code loads data into the 'dS.NhanVien' table. You can move, or remove it, as needed.
             this.nhanVienTableAdapter.Connection.ConnectionString = Program.connstr;    // gán thông tin đăng nhập vào các Adapter tương ứng để fill lấy thông tin đúng với thông tin đăng nhập.
             // TODO: This line of code loads data into the 'dS.NhanVien' table. You can move, or remove it, as needed.
@@ -154,31 +134,29 @@ namespace NGANHANG
             if (Program.mGroup == "NGANHANG")
             {
                 cmbChiNhanh.Enabled = true;
-               // btnThem.Enabled = btnHieuChinh.Enabled = btnLuu.Enabled = btnXoa.Enabled = btnPhucHoi.Enabled = false;
+                btnThem.Enabled = btnHieuChinh.Enabled = btnXoa.Enabled = btnPhucHoi.Enabled  = btnChuyenChiNhanh.Enabled = false;
+                btnLuu.Enabled = btnTaiLai.Enabled = false;
+                // btnThem.Enabled = btnHieuChinh.Enabled = btnLuu.Enabled = btnXoa.Enabled = btnPhucHoi.Enabled = false;
             }
             else
             {
                 cmbChiNhanh.Enabled = false;
               //  btnThem.Enabled = btnHieuChinh.Enabled = btnLuu.Enabled = btnXoa.Enabled = btnPhucHoi.Enabled = true;
             }
+            panelControl3.Enabled = false;
+           // string strLenh = "EXEC [SP_MaxMANV] '" + "0" + "'";
+
+            
+               // checkMaNV = Program.ExecSqlDataReader(strLenh);
+             //   checkMaNV.Read();
+          //  System.Console.WriteLine(checkMaNV.GetString(0));
+
+
+
 
         }
 
-        private void nhanVienBindingNavigator_RefreshItems(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pHAIComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panelControl1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
+       
         private void btnThem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             txtMaNV.Enabled = true; // Vì khi ta hiệu chỉnh thì không cho phép sửa mã -> nên ta khóa bên Hiệu Chỉnh -> Qua Thêm thì ta phải mở ra lại.
@@ -186,20 +164,60 @@ namespace NGANHANG
             panelControl3.Enabled = true;
             bdsNhanVien.AddNew();
             txtChiNhanh.Text = macn;
-            txtChiNhanh.Enabled = false;
+            txtChiNhanh.Enabled= txbTrangThaiXoa.Enabled = txtMaNV.Enabled = false;
             cmbGioiTinh.Items.Add("Nam");
             cmbGioiTinh.Items.Add("Nữ");
-            btnThem.Enabled = btnHieuChinh.Enabled = btnXoa.Enabled = btnTaiLai.Enabled = btnThoat.Enabled= btnChuyenChiNhanh.Enabled = false;
-            btnLuu.Enabled = btnPhucHoi.Enabled = true;
+            cmbGioiTinh.Text = "Nam";
+            txbTrangThaiXoa.Text = "0";
+            btnThem.Enabled = btnHieuChinh.Enabled = btnXoa.Enabled = btnPhucHoi.Enabled = btnThoat.Enabled= btnChuyenChiNhanh.Enabled = false;
+            btnLuu.Enabled = btnTaiLai.Enabled = true;
             gcNhanVien.Enabled = false;
             check_Luu_HieuChinh = 1;
+
+            string strLenh = "EXEC [SP_MaxMANV] '" + "0" + "'";
+
+
+            checkMaNV = Program.ExecSqlDataReader(strLenh);
+            checkMaNV.Read();
+            System.Console.WriteLine(checkMaNV.GetString(0));
+
+            maxMaNV = getMaxMaNV(checkMaNV.GetString(0));
+            txtMaNV.Text = maxMaNV;
+            checkMaNV.Close();
+
+
         }
 
         private void btnLuu_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             bool ketQua = kiemTraDuLieuDauVao();
+            String cauTruyVanHoanTac = "" +
+                                "DELETE DBO.NHANVIEN " +
+                                "WHERE MANV = " + txtMaNV.Text.Trim();
+            DataRowView drv = ((DataRowView)bdsNhanVien[bdsNhanVien.Position]);
+            String ho = drv["HO"].ToString();
+            String ten = drv["TEN"].ToString();
+            String cmnd = drv["CMND"].ToString();
+            String diaChi = drv["DIACHI"].ToString();
+            String phai = drv["PHAI"].ToString();
+            String sdt = drv["SODT"].ToString();
+
+            String cauTruyVanHoanTac2 = "UPDATE DBO.NhanVien " +
+    "SET " +
+    "[HO] = '" + ho + "', " +
+    "[TEN] = '" + ten + "', " +
+    "[CMND] = '" + cmnd + "', " +
+    "[DIACHI] = '" + diaChi + "', " +
+    "[PHAI] = '" + phai + "', " +
+    "[SODT] = '" + sdt + "', " +
+    "[MACN] = '" + macn + "', " +
+    "[TrangThaiXoa] = '0' " +
+    "WHERE MANV = '" + txtMaNV.Text.Trim() + "'";
+
+            vitri = bdsNhanVien.Position;
             if (ketQua == false)
                 return;
+
 
             if (check_Luu_HieuChinh == 1)    // Nếu chọn btn thêm thì ta chạy SP kiểm tra có trùng mã nv hay không.
             {
@@ -223,12 +241,20 @@ namespace NGANHANG
                     }
                     else
                     {
+                     /*   cauTruyVanHoanTac = "" +
+                                "DELETE DBO.NHANVIEN " +
+                                "WHERE MANV = " + txtMaNV.Text.Trim();  */
                         bdsNhanVien.EndEdit();    // kết thúc quá trình tạo. -> Ghi vào trong bds.
                         bdsNhanVien.ResetCurrentItem();   //Đưa những thông tin đó lên lưới.
                         this.nhanVienTableAdapter.Connection.ConnectionString = Program.connstr;
                         this.nhanVienTableAdapter.Update(this.DS.NhanVien); // Update trên adapter có 3 nghĩa: vừa là insert, update, delete. Nó tùy vào tình huống cụ thể để đưa lệnh tương ứng.
                         MessageBox.Show("Thêm thành công!", "", MessageBoxButtons.OK);
                         checkMaNV.Close();
+                        
+
+                       // undoList.Push(cauTruyVanHoanTac);
+                       // btnPhucHoi.Enabled = true;
+
                     }
                 }
                 catch (Exception ex)
@@ -242,10 +268,41 @@ namespace NGANHANG
             {
                 try
                 {
+                    /*  cauTruyVanHoanTac =
+                      "UPDATE DBO.NhanVien " +
+                              "SET " +
+                              "[HO] = '" + txtHo.Text + "'" +
+                              ",[TEN] = '" + txtTen.Text + "'" +
+                              ",[CMND] = '" + txtCMND.Text + "'" +
+                              ",[DIACHI = '" + txtDiaChi.Text + "'" +
+                              ",[PHAI] = '" + cmbGioiTinh.Text + "'" +
+                              ",[SODT] = '" + txtSDT.Text + "'" +
+                              ",[MACN] = '" + macn + "'" +
+                              ",[TrangThaiXoa] = '0'" +
+                              "WHERE MANV = '" + txtMaNV.Text.Trim() + "'";  */
+
+             /*       cauTruyVanHoanTac =
+    "UPDATE DBO.NhanVien " +
+    "SET " +
+    "[HO] = '" + txtHo.Text + "', " +
+    "[TEN] = '" + txtTen.Text + "', " +
+    "[CMND] = '" + txtCMND.Text + "', " +
+    "[DIACHI] = '" + txtDiaChi.Text + "', " +
+    "[PHAI] = '" + cmbGioiTinh.Text + "', " +
+    "[SODT] = '" + txtSDT.Text + "', " +
+    "[MACN] = '" + macn + "', " +
+    "[TrangThaiXoa] = '0' " +
+    "WHERE MANV = '" + txtMaNV.Text.Trim() + "'";
+             */
+
                     bdsNhanVien.EndEdit();    // kết thúc quá trình hiệu chỉnh. -> Ghi vào trong bds.
                     bdsNhanVien.ResetCurrentItem();   //Đưa những thông tin đó lên lưới.
                     this.nhanVienTableAdapter.Connection.ConnectionString = Program.connstr;
                     this.nhanVienTableAdapter.Update(this.DS.NhanVien); // Update trên adapter có 3 nghĩa: vừa là insert, update, delete. Nó tùy vào tình huống cụ thể để đưa lệnh tương ứng.
+                    
+                    
+                    undoList.Push(cauTruyVanHoanTac2);
+                    btnPhucHoi.Enabled = true;
                 }
                 catch (Exception ex)
                 {
@@ -255,11 +312,207 @@ namespace NGANHANG
             }
 
             gcNhanVien.Enabled = true;
-            btnThem.Enabled = btnXoa.Enabled = btnHieuChinh.Enabled = btnTaiLai.Enabled = btnThoat.Enabled = true;
-            btnLuu.Enabled = btnPhucHoi.Enabled = false;
+            btnThem.Enabled = btnXoa.Enabled = btnHieuChinh.Enabled = btnTaiLai.Enabled  = btnPhucHoi.Enabled = btnThoat.Enabled = true;
+            btnLuu.Enabled =  false;
 
             panelControl3.Enabled = false;
 
+        }
+
+        private void btnHieuChinh_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            vitri = bdsNhanVien.Position;
+            txtMaNV.Enabled = false;    //ta không cho phép sửa mã nhân viên.
+            panelControl3.Enabled = true;
+            // btnThem.Enabled = btnXoa.Enabled = btnHieuChinh.Enabled =  btnThoat.Enabled = false;
+            //btnLuu.Enabled = btnPhucHoi.Enabled = btnTaiLai.Enabled = true;
+            //btnLuu.Enabled = btnPhucHoi.Enabled = btnTaiLai.Enabled = true;
+            btnThem.Enabled = btnHieuChinh.Enabled = btnXoa.Enabled = btnPhucHoi.Enabled = btnThoat.Enabled = btnChuyenChiNhanh.Enabled = false;
+            btnLuu.Enabled = btnTaiLai.Enabled = true;
+            gcNhanVien.Enabled = false;
+            check_Luu_HieuChinh = 2;
+        }
+
+        private void btnTaiLai_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            panelControl3.Enabled = false;
+            btnThem.Enabled = btnXoa.Enabled = btnHieuChinh.Enabled = btnThoat.Enabled = btnChuyenChiNhanh.Enabled= true;
+            btnLuu.Enabled = btnPhucHoi.Enabled = btnTaiLai.Enabled = true;
+           // btnLuu.Enabled = btnPhucHoi.Enabled = btnTaiLai.Enabled = true;
+            gcNhanVien.Enabled = true;
+            try
+            {
+                this.nhanVienTableAdapter.Fill(this.DS.NhanVien);   // tải lại Nhân Viên.
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi Tải lại danh sách nhân viên: " + ex.Message, "", MessageBoxButtons.OK);
+                return;
+            }
+        }
+
+        private void btnThoat_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            this.Close();
+        }
+
+        private string getMaxMaNV(string maNV)
+        {
+            maNV = maNV.Substring(2);
+            int maNVInt = int.Parse(maNV);
+            maNVInt++;
+            string result = "NV" + maNVInt.ToString();
+            return result;
+        }
+        private bool kiemTraDuLieuDauVao()
+        {
+            /*kiem tra txtMANV
+            if (txtMaNV.Text == "")
+            {
+                MessageBox.Show("Không bỏ trống mã nhân viên", "Thông báo", MessageBoxButtons.OK);
+                txtMaNV.Focus();
+                return false;
+            }
+
+
+            if (Regex.IsMatch(txtMaNV.Text, @"^[a-zA-Z0-9 ]+$") == false)
+            {   
+                MessageBox.Show("Mã nhân viên chỉ chấp nhận số và chữ cái", "Thông báo", MessageBoxButtons.OK);
+                txtMaNV.Text = Regex.Replace(txtMaNV.Text, @"\s+", "");
+                txtMaNV.Focus();
+                return false;
+            }
+            kiem tra txtHO*/
+            if (txtHo.Text == "")
+            {
+                MessageBox.Show("Không bỏ trống họ và tên", "Thông báo", MessageBoxButtons.OK);
+                txtHo.Focus();
+                return false;
+            }
+            //"^[0-9A-Za-z ]+$"
+            if (Regex.IsMatch(txtHo.Text, @"^[\p{L} ]+$") == false)
+            {
+                MessageBox.Show("Họ của người chỉ có chữ cái và khoảng trắng", "Thông báo", MessageBoxButtons.OK);
+                txtHo.Focus();
+                return false;
+            }
+            if (txtHo.Text.Length > 40)
+            {
+                MessageBox.Show("Họ không thể lớn hơn 40 kí tự", "Thông báo", MessageBoxButtons.OK);
+                txtHo.Focus();
+                return false;
+            }
+            /*kiem tra txtTEN*/
+            if (txtTen.Text == "")
+            {
+                MessageBox.Show("Không bỏ trống họ và tên", "Thông báo", MessageBoxButtons.OK);
+                txtTen.Focus();
+                return false;
+            }
+
+            if (Regex.IsMatch(txtTen.Text, @"^[\p{L} ]+$") == false)
+            {
+                MessageBox.Show("Tên người chỉ có chữ cái và khoảng trắng", "Thông báo", MessageBoxButtons.OK);
+                txtTen.Focus();
+                return false;
+            }
+
+            if (txtTen.Text.Length > 40)
+            {
+                MessageBox.Show("Tên không thể lớn hơn 40 kí tự", "Thông báo", MessageBoxButtons.OK);
+                txtTen.Focus();
+                return false;
+            }
+            /*kiem tra txtDIACHI*/
+            if (txtDiaChi.Text == "")
+            {
+                MessageBox.Show("Không bỏ trống địa chỉ", "Thông báo", MessageBoxButtons.OK);
+                txtDiaChi.Focus();
+                return false;
+            }
+
+            if (Regex.IsMatch(txtDiaChi.Text, @"^[\p{L}0-9, ]+$") == false)
+            {
+                MessageBox.Show("Địa chỉ chỉ chấp nhận chữ cái, số và khoảng trắng", "Thông báo", MessageBoxButtons.OK);
+                txtDiaChi.Focus();
+                return false;
+            }
+
+            if (txtDiaChi.Text.Length > 100)
+            {
+                MessageBox.Show("Không bỏ trống địa chỉ", "Thông báo", MessageBoxButtons.OK);
+                txtDiaChi.Focus();
+                return false;
+            }
+
+            if (Regex.IsMatch(txtCMND.Text, @"^[0-9 ]+$") == false)
+            {
+                MessageBox.Show("CMND chỉ nhận số", "Thông báo", MessageBoxButtons.OK);
+                txtCMND.Focus();
+                return false;
+            }
+
+
+            /* if (!Regex.IsMatch(txtCMND.Text, @"^\d{9}$"))
+             {
+                 MessageBox.Show("CMND chỉ nhận 9 chữ số", "Thông báo", MessageBoxButtons.OK);
+                 txtCMND.Focus();
+                 return false;
+             }
+            */
+            if (Regex.IsMatch(txtSDT.Text, @"^[0-9 ]+$") == false)
+            {
+                MessageBox.Show("SDT chỉ nhận số", "Thông báo", MessageBoxButtons.OK);
+                txtSDT.Focus();
+                return false;
+            }
+
+
+            return true;
+        }
+
+        private void nhanVienBindingNavigator_RefreshItems(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pHAIComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelControl1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPhucHoi_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (undoList.Count == 0)
+            {
+                MessageBox.Show("Không còn thao tác nào để khôi phục", "Thông báo", MessageBoxButtons.OK);
+                btnPhucHoi.Enabled = false;
+                return;
+            }
+            bdsNhanVien.CancelEdit();
+            String cauTruyVanHoanTac = undoList.Pop().ToString();
+
+            if (Program.KetNoi() == 0)
+            {
+                return;
+            }
+            System.Console.WriteLine(cauTruyVanHoanTac);
+
+            int n = Program.ExecSqlNonQuery(cauTruyVanHoanTac);
+            bdsNhanVien.Position = vitri;
+
+
+            this.nhanVienTableAdapter.Fill(this.DS.NhanVien);
         }
     }
 }
