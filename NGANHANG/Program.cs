@@ -25,6 +25,7 @@ namespace NGANHANG
         public static String mlogin = "";
         public static String password = "";
 
+
         public static String database = "NGANHANG";
         public static String remotelogin = "HTKN";
         public static String remotepassword = "123";

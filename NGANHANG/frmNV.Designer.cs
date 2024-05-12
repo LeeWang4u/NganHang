@@ -225,81 +225,90 @@ namespace NGANHANG
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(309, 155);
+            label2.Font = new System.Drawing.Font("Tahoma", 12F);
+            label2.Location = new System.Drawing.Point(354, 156);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(97, 17);
+            label2.Size = new System.Drawing.Size(140, 24);
             label2.TabIndex = 36;
             label2.Text = "Mã Chi Nhánh:";
             // 
             // label3
             // 
             label3.AutoSize = true;
+            label3.Font = new System.Drawing.Font("Tahoma", 12F);
             label3.Location = new System.Drawing.Point(28, 150);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(97, 17);
+            label3.Size = new System.Drawing.Size(142, 24);
             label3.TabIndex = 34;
             label3.Text = "Số Điện Thoại:";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(329, 103);
+            label4.Font = new System.Drawing.Font("Tahoma", 12F);
+            label4.Location = new System.Drawing.Point(355, 107);
             label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(61, 17);
+            label4.Size = new System.Drawing.Size(91, 24);
             label4.TabIndex = 32;
             label4.Text = "Giới tính:";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(662, 92);
+            label5.Font = new System.Drawing.Font("Tahoma", 12F);
+            label5.Location = new System.Drawing.Point(684, 95);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(55, 17);
+            label5.Size = new System.Drawing.Size(81, 24);
             label5.TabIndex = 30;
             label5.Text = "Địa Chỉ:";
             // 
             // label6
             // 
             label6.AutoSize = true;
+            label6.Font = new System.Drawing.Font("Tahoma", 12F);
             label6.Location = new System.Drawing.Point(28, 99);
             label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(51, 17);
+            label6.Size = new System.Drawing.Size(71, 24);
             label6.TabIndex = 28;
             label6.Text = "CMND:";
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(660, 46);
+            label7.Font = new System.Drawing.Font("Tahoma", 12F);
+            label7.Location = new System.Drawing.Point(682, 49);
             label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(36, 17);
+            label7.Size = new System.Drawing.Size(51, 24);
             label7.TabIndex = 26;
             label7.Text = "Tên:";
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new System.Drawing.Point(339, 46);
+            label8.Font = new System.Drawing.Font("Tahoma", 12F);
+            label8.Location = new System.Drawing.Point(354, 50);
             label8.Name = "label8";
-            label8.Size = new System.Drawing.Size(30, 17);
+            label8.Size = new System.Drawing.Size(42, 24);
             label8.TabIndex = 24;
             label8.Text = "Họ:";
             // 
             // label9
             // 
             label9.AutoSize = true;
+            label9.Font = new System.Drawing.Font("Tahoma", 12F);
             label9.Location = new System.Drawing.Point(31, 44);
             label9.Name = "label9";
-            label9.Size = new System.Drawing.Size(95, 17);
+            label9.Size = new System.Drawing.Size(140, 24);
             label9.TabIndex = 23;
             label9.Text = "Mã Nhân Viên:";
             // 
             // trangThaiXoaLabel
             // 
             trangThaiXoaLabel.AutoSize = true;
-            trangThaiXoaLabel.Location = new System.Drawing.Point(662, 159);
+            trangThaiXoaLabel.Font = new System.Drawing.Font("Tahoma", 12F);
+            trangThaiXoaLabel.Location = new System.Drawing.Point(684, 162);
             trangThaiXoaLabel.Name = "trangThaiXoaLabel";
-            trangThaiXoaLabel.Size = new System.Drawing.Size(105, 17);
+            trangThaiXoaLabel.Size = new System.Drawing.Size(154, 24);
             trangThaiXoaLabel.TabIndex = 38;
             trangThaiXoaLabel.Text = "Trang Thai Xoa:";
             // 
@@ -348,6 +357,12 @@ namespace NGANHANG
             this.btnThem.Id = 0;
             this.btnThem.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnThem.ImageOptions.Image")));
             this.btnThem.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnThem.ImageOptions.LargeImage")));
+            this.btnThem.ItemAppearance.Disabled.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnThem.ItemAppearance.Disabled.Options.UseFont = true;
+            this.btnThem.ItemAppearance.Hovered.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnThem.ItemAppearance.Hovered.Options.UseFont = true;
+            this.btnThem.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnThem.ItemAppearance.Normal.Options.UseFont = true;
             this.btnThem.Name = "btnThem";
             this.btnThem.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             this.btnThem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnThem_ItemClick);
@@ -358,6 +373,8 @@ namespace NGANHANG
             this.btnXoa.Id = 1;
             this.btnXoa.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnXoa.ImageOptions.Image")));
             this.btnXoa.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnXoa.ImageOptions.LargeImage")));
+            this.btnXoa.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnXoa.ItemAppearance.Normal.Options.UseFont = true;
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             this.btnXoa.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem2_ItemClick);
@@ -368,6 +385,8 @@ namespace NGANHANG
             this.btnHieuChinh.Id = 2;
             this.btnHieuChinh.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnHieuChinh.ImageOptions.Image")));
             this.btnHieuChinh.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnHieuChinh.ImageOptions.LargeImage")));
+            this.btnHieuChinh.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnHieuChinh.ItemAppearance.Normal.Options.UseFont = true;
             this.btnHieuChinh.Name = "btnHieuChinh";
             this.btnHieuChinh.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             this.btnHieuChinh.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnHieuChinh_ItemClick);
@@ -378,6 +397,8 @@ namespace NGANHANG
             this.btnLuu.Id = 3;
             this.btnLuu.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnLuu.ImageOptions.Image")));
             this.btnLuu.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnLuu.ImageOptions.LargeImage")));
+            this.btnLuu.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnLuu.ItemAppearance.Normal.Options.UseFont = true;
             this.btnLuu.Name = "btnLuu";
             this.btnLuu.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             this.btnLuu.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnLuu_ItemClick);
@@ -388,6 +409,8 @@ namespace NGANHANG
             this.btnPhucHoi.Id = 4;
             this.btnPhucHoi.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnPhucHoi.ImageOptions.Image")));
             this.btnPhucHoi.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnPhucHoi.ImageOptions.LargeImage")));
+            this.btnPhucHoi.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnPhucHoi.ItemAppearance.Normal.Options.UseFont = true;
             this.btnPhucHoi.Name = "btnPhucHoi";
             this.btnPhucHoi.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             this.btnPhucHoi.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPhucHoi_ItemClick);
@@ -398,6 +421,8 @@ namespace NGANHANG
             this.btnTaiLai.Id = 5;
             this.btnTaiLai.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnTaiLai.ImageOptions.Image")));
             this.btnTaiLai.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnTaiLai.ImageOptions.LargeImage")));
+            this.btnTaiLai.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnTaiLai.ItemAppearance.Normal.Options.UseFont = true;
             this.btnTaiLai.Name = "btnTaiLai";
             this.btnTaiLai.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             this.btnTaiLai.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnTaiLai_ItemClick);
@@ -408,8 +433,11 @@ namespace NGANHANG
             this.btnChuyenChiNhanh.Id = 7;
             this.btnChuyenChiNhanh.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnChuyenChiNhanh.ImageOptions.Image")));
             this.btnChuyenChiNhanh.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnChuyenChiNhanh.ImageOptions.LargeImage")));
+            this.btnChuyenChiNhanh.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnChuyenChiNhanh.ItemAppearance.Normal.Options.UseFont = true;
             this.btnChuyenChiNhanh.Name = "btnChuyenChiNhanh";
             this.btnChuyenChiNhanh.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            this.btnChuyenChiNhanh.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnChuyenChiNhanh_ItemClick);
             // 
             // btnThoat
             // 
@@ -417,6 +445,8 @@ namespace NGANHANG
             this.btnThoat.Id = 6;
             this.btnThoat.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnThoat.ImageOptions.Image")));
             this.btnThoat.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnThoat.ImageOptions.LargeImage")));
+            this.btnThoat.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnThoat.ItemAppearance.Normal.Options.UseFont = true;
             this.btnThoat.Name = "btnThoat";
             this.btnThoat.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             this.btnThoat.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnThoat_ItemClick);
@@ -478,20 +508,21 @@ namespace NGANHANG
             // 
             // cmbChiNhanh
             // 
-            this.cmbChiNhanh.Font = new System.Drawing.Font("Times New Roman", 11F);
+            this.cmbChiNhanh.Font = new System.Drawing.Font("Times New Roman", 12F);
             this.cmbChiNhanh.FormattingEnabled = true;
             this.cmbChiNhanh.Location = new System.Drawing.Point(299, 22);
             this.cmbChiNhanh.Name = "cmbChiNhanh";
-            this.cmbChiNhanh.Size = new System.Drawing.Size(190, 28);
+            this.cmbChiNhanh.Size = new System.Drawing.Size(248, 30);
             this.cmbChiNhanh.TabIndex = 1;
+            this.cmbChiNhanh.SelectedIndexChanged += new System.EventHandler(this.cmbChiNhanh_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 11F);
-            this.label1.Location = new System.Drawing.Point(192, 22);
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.label1.Location = new System.Drawing.Point(194, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 21);
+            this.label1.Size = new System.Drawing.Size(99, 22);
             this.label1.TabIndex = 0;
             this.label1.Text = "Chi Nhánh:";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -554,7 +585,7 @@ namespace NGANHANG
             // 
             // colMANV
             // 
-            this.colMANV.Caption = "Mã Nhân Viên";
+            this.colMANV.Caption = "MANV";
             this.colMANV.FieldName = "MANV";
             this.colMANV.MinWidth = 25;
             this.colMANV.Name = "colMANV";
@@ -754,6 +785,7 @@ namespace NGANHANG
             this.panelControl3.Name = "panelControl3";
             this.panelControl3.Size = new System.Drawing.Size(1092, 636);
             this.panelControl3.TabIndex = 27;
+            this.panelControl3.Paint += new System.Windows.Forms.PaintEventHandler(this.panelControl3_Paint);
             // 
             // txbTrangThaiXoa
             // 
@@ -763,85 +795,101 @@ namespace NGANHANG
             0,
             0,
             0});
-            this.txbTrangThaiXoa.Location = new System.Drawing.Point(773, 156);
+            this.txbTrangThaiXoa.Location = new System.Drawing.Point(844, 159);
             this.txbTrangThaiXoa.MenuManager = this.barManager1;
             this.txbTrangThaiXoa.Name = "txbTrangThaiXoa";
+            this.txbTrangThaiXoa.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.txbTrangThaiXoa.Properties.Appearance.Options.UseFont = true;
             this.txbTrangThaiXoa.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.txbTrangThaiXoa.Size = new System.Drawing.Size(125, 24);
+            this.txbTrangThaiXoa.Size = new System.Drawing.Size(125, 30);
             this.txbTrangThaiXoa.TabIndex = 39;
             // 
             // txtChiNhanh
             // 
             this.txtChiNhanh.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bdsNhanVien, "MACN", true));
+            this.txtChiNhanh.Font = new System.Drawing.Font("Tahoma", 12F);
             this.txtChiNhanh.FormattingEnabled = true;
-            this.txtChiNhanh.Location = new System.Drawing.Point(412, 152);
+            this.txtChiNhanh.Location = new System.Drawing.Point(500, 153);
             this.txtChiNhanh.Name = "txtChiNhanh";
-            this.txtChiNhanh.Size = new System.Drawing.Size(196, 24);
+            this.txtChiNhanh.Size = new System.Drawing.Size(151, 32);
             this.txtChiNhanh.TabIndex = 38;
             // 
             // txtSDT
             // 
             this.txtSDT.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsNhanVien, "SODT", true));
-            this.txtSDT.Location = new System.Drawing.Point(127, 147);
+            this.txtSDT.Location = new System.Drawing.Point(176, 150);
             this.txtSDT.MenuManager = this.barManager1;
             this.txtSDT.Name = "txtSDT";
-            this.txtSDT.Size = new System.Drawing.Size(149, 22);
+            this.txtSDT.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.txtSDT.Properties.Appearance.Options.UseFont = true;
+            this.txtSDT.Size = new System.Drawing.Size(149, 30);
             this.txtSDT.TabIndex = 37;
             // 
             // cmbGioiTinh
             // 
             this.cmbGioiTinh.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bdsNhanVien, "PHAI", true));
+            this.cmbGioiTinh.Font = new System.Drawing.Font("Tahoma", 12F);
             this.cmbGioiTinh.FormattingEnabled = true;
-            this.cmbGioiTinh.Location = new System.Drawing.Point(412, 103);
+            this.cmbGioiTinh.Location = new System.Drawing.Point(452, 107);
             this.cmbGioiTinh.Name = "cmbGioiTinh";
-            this.cmbGioiTinh.Size = new System.Drawing.Size(121, 24);
+            this.cmbGioiTinh.Size = new System.Drawing.Size(121, 32);
             this.cmbGioiTinh.TabIndex = 35;
             this.cmbGioiTinh.Text = "Nam";
             // 
             // txtDiaChi
             // 
             this.txtDiaChi.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsNhanVien, "DIACHI", true));
-            this.txtDiaChi.Location = new System.Drawing.Point(725, 89);
+            this.txtDiaChi.Location = new System.Drawing.Point(771, 92);
             this.txtDiaChi.MenuManager = this.barManager1;
             this.txtDiaChi.Name = "txtDiaChi";
-            this.txtDiaChi.Size = new System.Drawing.Size(326, 22);
+            this.txtDiaChi.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.txtDiaChi.Properties.Appearance.Options.UseFont = true;
+            this.txtDiaChi.Size = new System.Drawing.Size(326, 30);
             this.txtDiaChi.TabIndex = 33;
             // 
             // txtCMND
             // 
             this.txtCMND.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsNhanVien, "CMND", true));
-            this.txtCMND.Location = new System.Drawing.Point(127, 96);
+            this.txtCMND.Location = new System.Drawing.Point(176, 93);
             this.txtCMND.MenuManager = this.barManager1;
             this.txtCMND.Name = "txtCMND";
-            this.txtCMND.Size = new System.Drawing.Size(149, 22);
+            this.txtCMND.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.txtCMND.Properties.Appearance.Options.UseFont = true;
+            this.txtCMND.Size = new System.Drawing.Size(149, 30);
             this.txtCMND.TabIndex = 31;
             // 
             // txtTen
             // 
             this.txtTen.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsNhanVien, "TEN", true));
-            this.txtTen.Location = new System.Drawing.Point(704, 43);
+            this.txtTen.Location = new System.Drawing.Point(739, 46);
             this.txtTen.MenuManager = this.barManager1;
             this.txtTen.Name = "txtTen";
-            this.txtTen.Size = new System.Drawing.Size(201, 22);
+            this.txtTen.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.txtTen.Properties.Appearance.Options.UseFont = true;
+            this.txtTen.Size = new System.Drawing.Size(201, 30);
             this.txtTen.TabIndex = 29;
             // 
             // txtHo
             // 
             this.txtHo.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsNhanVien, "HO", true));
-            this.txtHo.Location = new System.Drawing.Point(412, 43);
+            this.txtHo.Location = new System.Drawing.Point(402, 47);
             this.txtHo.MenuManager = this.barManager1;
             this.txtHo.Name = "txtHo";
-            this.txtHo.Size = new System.Drawing.Size(196, 22);
+            this.txtHo.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.txtHo.Properties.Appearance.Options.UseFont = true;
+            this.txtHo.Size = new System.Drawing.Size(196, 30);
             this.txtHo.TabIndex = 27;
             // 
             // txtMaNV
             // 
             this.txtMaNV.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsNhanVien, "MANV", true));
-            this.txtMaNV.Location = new System.Drawing.Point(127, 41);
+            this.txtMaNV.Location = new System.Drawing.Point(176, 43);
             this.txtMaNV.MenuManager = this.barManager1;
             this.txtMaNV.Name = "txtMaNV";
-            this.txtMaNV.Size = new System.Drawing.Size(149, 22);
+            this.txtMaNV.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.txtMaNV.Properties.Appearance.Options.UseFont = true;
+            this.txtMaNV.Size = new System.Drawing.Size(149, 30);
             this.txtMaNV.TabIndex = 25;
             // 
             // bdsGD_GUIRUT

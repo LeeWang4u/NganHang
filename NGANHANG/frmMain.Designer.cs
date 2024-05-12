@@ -34,13 +34,12 @@ namespace NGANHANG
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.btnDangNhap = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
+            this.btnTaoTKNV = new DevExpress.XtraBars.BarButtonItem();
             this.btnKhachHang = new DevExpress.XtraBars.BarButtonItem();
             this.btnNhanVien = new DevExpress.XtraBars.BarButtonItem();
             this.btnGuiRutTien = new DevExpress.XtraBars.BarButtonItem();
             this.btnChuyenTien = new DevExpress.XtraBars.BarButtonItem();
             this.ribHeThong = new DevExpress.XtraBars.Ribbon.RibbonPage();
-            this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.btnDangXuat = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribQuanLy = new DevExpress.XtraBars.Ribbon.RibbonPage();
@@ -69,7 +68,7 @@ namespace NGANHANG
             this.ribbonControl1.SearchEditItem,
             this.barButtonItem1,
             this.btnDangNhap,
-            this.barButtonItem3,
+            this.btnTaoTKNV,
             this.btnKhachHang,
             this.btnNhanVien,
             this.btnGuiRutTien,
@@ -90,21 +89,34 @@ namespace NGANHANG
             this.barButtonItem1.Caption = "Đăng Xuất";
             this.barButtonItem1.Id = 1;
             this.barButtonItem1.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItem1.ImageOptions.SvgImage")));
+            this.barButtonItem1.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.barButtonItem1.ItemAppearance.Normal.Options.UseFont = true;
             this.barButtonItem1.Name = "barButtonItem1";
+            this.barButtonItem1.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem1_ItemClick);
             // 
             // btnDangNhap
             // 
             this.btnDangNhap.Caption = "Đăng nhập";
             this.btnDangNhap.Id = 2;
             this.btnDangNhap.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDangNhap.ImageOptions.SvgImage")));
+            this.btnDangNhap.ItemAppearance.Disabled.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnDangNhap.ItemAppearance.Disabled.Options.UseFont = true;
+            this.btnDangNhap.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnDangNhap.ItemAppearance.Normal.Options.UseFont = true;
+            this.btnDangNhap.ItemInMenuAppearance.Disabled.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnDangNhap.ItemInMenuAppearance.Disabled.Options.UseFont = true;
             this.btnDangNhap.Name = "btnDangNhap";
+            this.btnDangNhap.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDangNhap_ItemClick);
             // 
-            // barButtonItem3
+            // btnTaoTKNV
             // 
-            this.barButtonItem3.Caption = "barButtonItem3";
-            this.barButtonItem3.Id = 3;
-            this.barButtonItem3.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItem3.ImageOptions.SvgImage")));
-            this.barButtonItem3.Name = "barButtonItem3";
+            this.btnTaoTKNV.Caption = "Tạo Tài Khoản";
+            this.btnTaoTKNV.Id = 3;
+            this.btnTaoTKNV.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnTaoTKNV.ImageOptions.SvgImage")));
+            this.btnTaoTKNV.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnTaoTKNV.ItemAppearance.Normal.Options.UseFont = true;
+            this.btnTaoTKNV.Name = "btnTaoTKNV";
+            this.btnTaoTKNV.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnTaoTKNV_ItemClick);
             // 
             // btnKhachHang
             // 
@@ -120,6 +132,8 @@ namespace NGANHANG
             this.btnNhanVien.Id = 5;
             this.btnNhanVien.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnNhanVien.ImageOptions.Image")));
             this.btnNhanVien.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnNhanVien.ImageOptions.LargeImage")));
+            this.btnNhanVien.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnNhanVien.ItemAppearance.Normal.Options.UseFont = true;
             this.btnNhanVien.Name = "btnNhanVien";
             this.btnNhanVien.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnNhanVien_ItemClick);
             // 
@@ -129,6 +143,8 @@ namespace NGANHANG
             this.btnGuiRutTien.Id = 6;
             this.btnGuiRutTien.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnGuiRutTien.ImageOptions.Image")));
             this.btnGuiRutTien.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnGuiRutTien.ImageOptions.LargeImage")));
+            this.btnGuiRutTien.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btnGuiRutTien.ItemAppearance.Normal.Options.UseFont = true;
             this.btnGuiRutTien.Name = "btnGuiRutTien";
             this.btnGuiRutTien.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnGuiRutTien_ItemClick);
             // 
@@ -143,36 +159,30 @@ namespace NGANHANG
             // 
             // ribHeThong
             // 
+            this.ribHeThong.Appearance.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.ribHeThong.Appearance.Options.UseFont = true;
             this.ribHeThong.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroup5,
             this.btnDangXuat,
             this.ribbonPageGroup1});
             this.ribHeThong.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("ribHeThong.ImageOptions.Image")));
             this.ribHeThong.Name = "ribHeThong";
             this.ribHeThong.Text = "Hệ Thống";
             // 
-            // ribbonPageGroup5
-            // 
-            this.ribbonPageGroup5.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("ribbonPageGroup5.ImageOptions.Image")));
-            this.ribbonPageGroup5.ItemLinks.Add(this.btnDangNhap);
-            this.ribbonPageGroup5.Name = "ribbonPageGroup5";
-            this.ribbonPageGroup5.Text = "ribbonPageGroup5";
-            // 
             // btnDangXuat
             // 
             this.btnDangXuat.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDangXuat.ImageOptions.SvgImage")));
             this.btnDangXuat.ItemLinks.Add(this.barButtonItem1);
             this.btnDangXuat.Name = "btnDangXuat";
-            this.btnDangXuat.Text = "Đăng Xuất";
             // 
             // ribbonPageGroup1
             // 
-            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem3);
+            this.ribbonPageGroup1.ItemLinks.Add(this.btnTaoTKNV);
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
-            this.ribbonPageGroup1.Text = "ribbonPageGroup1";
             // 
             // ribQuanLy
             // 
+            this.ribQuanLy.Appearance.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.ribQuanLy.Appearance.Options.UseFont = true;
             this.ribQuanLy.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup2,
             this.ribbonPageGroup6});
@@ -193,6 +203,8 @@ namespace NGANHANG
             // 
             // ribNghiepVu
             // 
+            this.ribNghiepVu.Appearance.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.ribNghiepVu.Appearance.Options.UseFont = true;
             this.ribNghiepVu.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup3,
             this.ribbonPageGroup7});
@@ -204,7 +216,6 @@ namespace NGANHANG
             // 
             this.ribbonPageGroup3.ItemLinks.Add(this.btnGuiRutTien);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
-            this.ribbonPageGroup3.Text = "ribbonPageGroup3";
             // 
             // ribbonPageGroup7
             // 
@@ -214,6 +225,8 @@ namespace NGANHANG
             // 
             // ribBaoCao
             // 
+            this.ribBaoCao.Appearance.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.ribBaoCao.Appearance.Options.UseFont = true;
             this.ribBaoCao.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup4});
             this.ribBaoCao.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("ribBaoCao.ImageOptions.Image")));
@@ -292,7 +305,6 @@ namespace NGANHANG
         public System.Windows.Forms.ToolStripStatusLabel MaNV;
         public System.Windows.Forms.ToolStripStatusLabel HoTen;
         public System.Windows.Forms.ToolStripStatusLabel Nhom;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup5;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribQuanLy;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribNghiepVu;
@@ -301,7 +313,7 @@ namespace NGANHANG
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup4;
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
         private DevExpress.XtraBars.BarButtonItem btnDangNhap;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem3;
+        private DevExpress.XtraBars.BarButtonItem btnTaoTKNV;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
         private DevExpress.XtraBars.BarButtonItem btnKhachHang;
         private DevExpress.XtraBars.BarButtonItem btnNhanVien;

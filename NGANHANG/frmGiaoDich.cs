@@ -80,6 +80,17 @@ namespace NGANHANG
             panelControl2.Enabled = false;
             panelControl3.Enabled = false;
 
+            if (Program.mGroup == "NGANHANG")
+            {
+                btnKT.Enabled = false;
+                // btnThem.Enabled = btnHieuChinh.Enabled = btnLuu.Enabled = btnXoa.Enabled = btnPhucHoi.Enabled = false;
+            }
+            else
+            {
+                btnKT.Enabled = true;
+                //  btnThem.Enabled = btnHieuChinh.Enabled = btnLuu.Enabled = btnXoa.Enabled = btnPhucHoi.Enabled = true;
+            }
+
         }
 
         private void btnGuiTien_Click(object sender, EventArgs e)

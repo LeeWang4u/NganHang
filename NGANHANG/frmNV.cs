@@ -31,7 +31,7 @@ namespace NGANHANG
         {
             InitializeComponent();
         }
-
+    
 
         // btnxoa
         private void barButtonItem2_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -61,6 +61,7 @@ namespace NGANHANG
             "VALUES('{0}','{1}','{2}','{3}','{4}', '{5}','{6}', '{7}',{8})", txtMaNV.Text, txtHo.Text, txtTen.Text,txtCMND.Text, txtDiaChi.Text, cmbGioiTinh.Text, txtSDT.Text, macn, "0");
 
             Console.WriteLine(cauTruyVanHoanTac);
+            undoList.Push(tenNV);
             undoList.Push(cauTruyVanHoanTac);
             btnPhucHoi.Enabled = true;
 
@@ -99,6 +100,7 @@ namespace NGANHANG
             }
             else
             {
+                undoList.Pop();
                 undoList.Pop();
             }
             if (bdsNhanVien.Count == 0) btnXoa.Enabled = false;   // trường hợp ta xóa hết nhân viên hoặc trong Grid không có ai thì ta làm mờ nút xóa đi. Nếu không nó sẽ báo lỗi ở dòng code 102 là khi ta lấy manv trước khi xóa ra thì bdsNV.Position không tìm thấy vị trí nào thì nó báo lỗi.
@@ -184,7 +186,10 @@ namespace NGANHANG
             maxMaNV = getMaxMaNV(checkMaNV.GetString(0));
             txtMaNV.Text = maxMaNV;
             checkMaNV.Close();
+            
+            System.Console.WriteLine(FindPosition("NV05")); 
 
+            System.Console.WriteLine(bdsNhanVien.Find("MANV", "NV05"));
 
         }
 
@@ -300,8 +305,10 @@ namespace NGANHANG
                     this.nhanVienTableAdapter.Connection.ConnectionString = Program.connstr;
                     this.nhanVienTableAdapter.Update(this.DS.NhanVien); // Update trên adapter có 3 nghĩa: vừa là insert, update, delete. Nó tùy vào tình huống cụ thể để đưa lệnh tương ứng.
                     
-                    
+
+                    undoList.Push(txtMaNV.Text.Trim());
                     undoList.Push(cauTruyVanHoanTac2);
+                    
                     btnPhucHoi.Enabled = true;
                 }
                 catch (Exception ex)
@@ -491,6 +498,36 @@ namespace NGANHANG
 
         }
 
+        private int FindPosition( string valueToSearch)
+        {
+            int a = 1;
+            string columnName = "MANV";
+            // Kiểm tra xem GridView/GridControl đã được khởi tạo và có dữ liệu hay không
+            if (gridView1 != null && gridView1.RowCount > 0)
+            {
+                // Lặp qua từng hàng trong GridView/GridControl
+                for (int i = 0; i < gridView1.RowCount; i++)
+                {
+                    // Lấy giá trị của ô tại cột được chỉ định
+                    object cellValue = gridView1.GetRowCellValue(i, columnName);
+
+                    // So sánh giá trị với thông tin cần tìm
+                    if (cellValue != null && cellValue.ToString() == valueToSearch)
+                    {
+                        // Nếu tìm thấy, in ra vị trí hoặc thực hiện hành động phù hợp
+                       // MessageBox.Show($"Giá trị được tìm thấy ở hàng {i + 1}");
+                        i++;
+                        return i ;
+                    }
+                }
+
+                // Thông báo nếu không tìm thấy
+               // MessageBox.Show("Không tìm thấy giá trị trong bảng.");
+            }
+            
+            return a;
+        }
+
         private void btnPhucHoi_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             if (undoList.Count == 0)
@@ -509,10 +546,81 @@ namespace NGANHANG
             System.Console.WriteLine(cauTruyVanHoanTac);
 
             int n = Program.ExecSqlNonQuery(cauTruyVanHoanTac);
-            bdsNhanVien.Position = vitri;
+            this.nhanVienTableAdapter.Fill(this.DS.NhanVien);
+            string m = undoList.Pop().ToString();
+            vitri = bdsNhanVien.Find("MANV",m );
+            //bdsNhanVien.Position = vitri + 1; // đưa con trỏ nhảy đến vị trí manv đã xóa thất bại trước đó.
+            bdsNhanVien.Position = bdsNhanVien.Find("MANV", m);
+            // bdsNhanVien.Position = vitri;
 
+
+
+           // this.nhanVienTableAdapter.Fill(this.DS.NhanVien);
+        }
+
+        private void cmbChiNhanh_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbChiNhanh.SelectedValue.ToString() == "System.Data.DataRowView") return;  //Kiểm tra cmb này đã có số liệu hay chưa.Trong thực tế có trường hợp mới mở form lên thì nó tự chạy rồi.Nhưng khi nó chạy mã mình vẫn chưa chọn gì thì sẽ báo lỗi.
+            Program.servername = cmbChiNhanh.SelectedValue.ToString();
+
+            if (cmbChiNhanh.SelectedIndex != Program.mChinhanh)  //nếu ta chọn chi nhánh khác với chi nhánh ở thời điểm đăng nhập thì ta sẽ dùng tk HTKN;
+            {
+                Program.mlogin = Program.remotelogin;
+                Program.password = Program.remotepassword;
+            }
+            else
+            {
+                Program.mlogin = Program.mloginDN;
+                Program.password = Program.passwordDN;
+            }
+            if (Program.KetNoi() == 0)
+                MessageBox.Show("Lỗi kết nối về chi nhánh mới!", "", MessageBoxButtons.OK);
+            else
+            {
+                this.nhanVienTableAdapter.Connection.ConnectionString = Program.connstr;    // gán thông tin đăng nhập vào các Adapter tương ứng để fill lấy thông tin đúng với thông tin đăng nhập.
+                this.nhanVienTableAdapter.Fill(this.DS.NhanVien);
+                this.gD_CHUYENTIENTableAdapter.Connection.ConnectionString = Program.connstr;
+                this.gD_CHUYENTIENTableAdapter.Fill(this.DS.GD_CHUYENTIEN);
+                this.gD_GOIRUTTableAdapter.Connection.ConnectionString = Program.connstr;
+                this.gD_GOIRUTTableAdapter.Fill(this.DS.GD_GOIRUT);
+            }
+        }
+
+        private void btnChuyenChiNhanh_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            String tenNV = ((DataRowView)bdsNhanVien[bdsNhanVien.Position])["MANV"].ToString();
+            if (tenNV == Program.username)
+            {
+                MessageBox.Show("Không thể tự chuyển chi nhánh, hãy nhờ người khác", "Thông báo", MessageBoxButtons.OK);
+                return;
+            }
+            string strLenh = "EXEC [SP_MaxMANV] '" + "0" + "'";
+
+
+            checkMaNV = Program.ExecSqlDataReader(strLenh);
+            checkMaNV.Read();
+            System.Console.WriteLine(checkMaNV.GetString(0));
+
+            String MaNVC = getMaxMaNV(checkMaNV.GetString(0));
+            
+            checkMaNV.Close();
+            String cmnd = ((DataRowView)bdsNhanVien[bdsNhanVien.Position])["CMND"].ToString();
+            String maCN = ((DataRowView)bdsNhanVien[bdsNhanVien.Position])["MACN"].ToString();
+            String ho = ((DataRowView)bdsNhanVien[bdsNhanVien.Position])["HO"].ToString();
+            String ten = ((DataRowView)bdsNhanVien[bdsNhanVien.Position])["TEN"].ToString();
+            String hoten = ho + " " + ten;
+            frmChuyenChiNhanh CNN = new frmChuyenChiNhanh(tenNV, cmnd,maCN, hoten, MaNVC);
+
+            CNN.ShowDialog(this);
 
             this.nhanVienTableAdapter.Fill(this.DS.NhanVien);
+            CNN.Close();
+
+        }
+
+        private void panelControl3_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

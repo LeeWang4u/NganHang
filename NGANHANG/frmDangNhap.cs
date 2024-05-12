@@ -15,9 +15,15 @@ using NGANHANG.Lib;
 namespace NGANHANG
 {
     public partial class frmDangNhap : DevExpress.XtraEditors.XtraForm
+
     {
 
+
+
+
+
         private static SqlConnection conn_publisher = new SqlConnection();
+        private static SqlConnection conn_publisher1 = new SqlConnection(Program.connstr_publisher);
 
         public frmDangNhap()
         {
@@ -48,6 +54,7 @@ namespace NGANHANG
             if (conn_publisher.State == ConnectionState.Closed) conn_publisher.Open();
             SqlDataAdapter da = new SqlDataAdapter(cmd, conn_publisher); // Tạo ra một đối tượng thuộc lớp SqlDataAdapter có 2 tham số là chuỗi lệnh và đối tượng SqlConnection.
             da.Fill(dt);    // Muốn tải số liệu từ View,Table từ DataAdapter vào DataTable thì ta dùng Fill -> dt sẽ chứa các danh sách phân mảnh.
+            
             conn_publisher.Close();
 
             Program.bds_dspm = new BindingSource();
@@ -64,6 +71,8 @@ namespace NGANHANG
             if (KetNoi_CSDLGOC() == 0) return; // nếu hàm KetNoi_CSDLGOC() == 0 -> đăng nhập thất bại
             LayDSPM("SELECT * FROM Get_Subscribes");  // Lấy ra danh sách các phân mảnh từ Get_Subscribles.
             cmbChiNhanh.SelectedIndex = 1; cmbChiNhanh.SelectedIndex = 0;
+           
+         
         }
 
         private void cmbChiNhanh_SelectedIndexChanged(object sender, EventArgs e)
@@ -101,8 +110,9 @@ namespace NGANHANG
 
             Program.username = Program.myReader.GetString(0); // Lay user name      //GetString(0) là cột đầu tiên chứa MANV.
             Debug.WriteLine("");
+            
             if (Convert.IsDBNull(Program.username))
-            {
+            {Console.WriteLine(Program.username);
                 MessageBox.Show("Login bạn nhập không có quyền truy cập dữ liệu\n Bạn xem lại username, password", "", MessageBoxButtons.OK);
                 return;
             }

@@ -59,6 +59,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DS.xsd</DependentUpon>
     </Compile>
+    <Compile Include="frmChuyenChiNhanh.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChuyenChiNhanh.Designer.cs">
+      <DependentUpon>frmChuyenChiNhanh.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDangNhap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,9 +89,18 @@
     <Compile Include="frmNV.Designer.cs">
       <DependentUpon>frmNV.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmTaoTKNV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTaoTKNV.Designer.cs">
+      <DependentUpon>frmTaoTKNV.cs</DependentUpon>
+    </Compile>
     <Compile Include="Lib\DbConnection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmChuyenChiNhanh.resx">
+      <DependentUpon>frmChuyenChiNhanh.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmDangNhap.resx">
       <DependentUpon>frmDangNhap.cs</DependentUpon>
     </EmbeddedResource>
@@ -97,6 +112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmNV.resx">
       <DependentUpon>frmNV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTaoTKNV.resx">
+      <DependentUpon>frmTaoTKNV.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">

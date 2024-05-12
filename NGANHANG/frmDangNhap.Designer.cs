@@ -51,26 +51,26 @@ namespace NGANHANG
             // 
             // cmbChiNhanh
             // 
-            this.cmbChiNhanh.Font = new System.Drawing.Font("Times New Roman", 10F);
+            this.cmbChiNhanh.Font = new System.Drawing.Font("Times New Roman", 14F);
             this.cmbChiNhanh.FormattingEnabled = true;
             this.cmbChiNhanh.Location = new System.Drawing.Point(281, 59);
             this.cmbChiNhanh.Name = "cmbChiNhanh";
-            this.cmbChiNhanh.Size = new System.Drawing.Size(265, 27);
+            this.cmbChiNhanh.Size = new System.Drawing.Size(265, 34);
             this.cmbChiNhanh.TabIndex = 1;
             this.cmbChiNhanh.SelectedIndexChanged += new System.EventHandler(this.cmbChiNhanh_SelectedIndexChanged);
             // 
             // txbTaiKhoan
             // 
-            this.txbTaiKhoan.Font = new System.Drawing.Font("Times New Roman", 10F);
+            this.txbTaiKhoan.Font = new System.Drawing.Font("Times New Roman", 14F);
             this.txbTaiKhoan.Location = new System.Drawing.Point(281, 136);
             this.txbTaiKhoan.Name = "txbTaiKhoan";
-            this.txbTaiKhoan.Size = new System.Drawing.Size(265, 27);
+            this.txbTaiKhoan.Size = new System.Drawing.Size(265, 34);
             this.txbTaiKhoan.TabIndex = 2;
             this.txbTaiKhoan.Text = "NV03";
             // 
             // btnDangNhap
             // 
-            this.btnDangNhap.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDangNhap.Font = new System.Drawing.Font("Times New Roman", 14F);
             this.btnDangNhap.Location = new System.Drawing.Point(210, 320);
             this.btnDangNhap.Name = "btnDangNhap";
             this.btnDangNhap.Size = new System.Drawing.Size(143, 36);
@@ -101,7 +101,7 @@ namespace NGANHANG
             // 
             // btnThoat
             // 
-            this.btnThoat.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.btnThoat.Font = new System.Drawing.Font("Times New Roman", 14F);
             this.btnThoat.Location = new System.Drawing.Point(454, 320);
             this.btnThoat.Name = "btnThoat";
             this.btnThoat.Size = new System.Drawing.Size(134, 36);
@@ -112,10 +112,10 @@ namespace NGANHANG
             // 
             // txbMatKhau
             // 
-            this.txbMatKhau.Font = new System.Drawing.Font("Times New Roman", 10F);
+            this.txbMatKhau.Font = new System.Drawing.Font("Times New Roman", 14F);
             this.txbMatKhau.Location = new System.Drawing.Point(281, 207);
             this.txbMatKhau.Name = "txbMatKhau";
-            this.txbMatKhau.Size = new System.Drawing.Size(265, 27);
+            this.txbMatKhau.Size = new System.Drawing.Size(265, 34);
             this.txbMatKhau.TabIndex = 7;
             this.txbMatKhau.Text = "123";
             // 
