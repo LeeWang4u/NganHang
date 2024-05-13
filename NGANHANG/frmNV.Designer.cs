@@ -105,6 +105,8 @@ namespace NGANHANG
             this.gD_GOIRUTTableAdapter = new NGANHANG.DSTableAdapters.GD_GOIRUTTableAdapter();
             this.bdsGD_CHUYENTIEN = new System.Windows.Forms.BindingSource(this.components);
             this.gD_CHUYENTIENTableAdapter = new NGANHANG.DSTableAdapters.GD_CHUYENTIENTableAdapter();
+            this.fillByCmndToolStrip = new System.Windows.Forms.ToolStrip();
+            this.fillByCmndToolStripButton = new System.Windows.Forms.ToolStripButton();
             mANVLabel = new System.Windows.Forms.Label();
             hOLabel = new System.Windows.Forms.Label();
             tENLabel = new System.Windows.Forms.Label();
@@ -148,6 +150,7 @@ namespace NGANHANG
             ((System.ComponentModel.ISupportInitialize)(this.txtMaNV.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsGD_GUIRUT)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsGD_CHUYENTIEN)).BeginInit();
+            this.fillByCmndToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // mANVLabel
@@ -825,6 +828,7 @@ namespace NGANHANG
             this.txtSDT.Properties.Appearance.Options.UseFont = true;
             this.txtSDT.Size = new System.Drawing.Size(149, 30);
             this.txtSDT.TabIndex = 37;
+            this.txtSDT.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSDT_KeyPress);
             // 
             // cmbGioiTinh
             // 
@@ -858,6 +862,7 @@ namespace NGANHANG
             this.txtCMND.Properties.Appearance.Options.UseFont = true;
             this.txtCMND.Size = new System.Drawing.Size(149, 30);
             this.txtCMND.TabIndex = 31;
+            this.txtCMND.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCMND_KeyPress);
             // 
             // txtTen
             // 
@@ -869,6 +874,7 @@ namespace NGANHANG
             this.txtTen.Properties.Appearance.Options.UseFont = true;
             this.txtTen.Size = new System.Drawing.Size(201, 30);
             this.txtTen.TabIndex = 29;
+            this.txtTen.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTen_KeyPress);
             // 
             // txtHo
             // 
@@ -880,6 +886,7 @@ namespace NGANHANG
             this.txtHo.Properties.Appearance.Options.UseFont = true;
             this.txtHo.Size = new System.Drawing.Size(196, 30);
             this.txtHo.TabIndex = 27;
+            this.txtHo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHo_KeyPress);
             // 
             // txtMaNV
             // 
@@ -910,11 +917,31 @@ namespace NGANHANG
             // 
             this.gD_CHUYENTIENTableAdapter.ClearBeforeFill = true;
             // 
+            // fillByCmndToolStrip
+            // 
+            this.fillByCmndToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.fillByCmndToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fillByCmndToolStripButton});
+            this.fillByCmndToolStrip.Location = new System.Drawing.Point(0, 382);
+            this.fillByCmndToolStrip.Name = "fillByCmndToolStrip";
+            this.fillByCmndToolStrip.Size = new System.Drawing.Size(1092, 27);
+            this.fillByCmndToolStrip.TabIndex = 32;
+            this.fillByCmndToolStrip.Text = "fillByCmndToolStrip";
+            // 
+            // fillByCmndToolStripButton
+            // 
+            this.fillByCmndToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.fillByCmndToolStripButton.Name = "fillByCmndToolStripButton";
+            this.fillByCmndToolStripButton.Size = new System.Drawing.Size(87, 24);
+            this.fillByCmndToolStripButton.Text = "FillByCmnd";
+            this.fillByCmndToolStripButton.Click += new System.EventHandler(this.fillByCmndToolStripButton_Click);
+            // 
             // frmNV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1092, 1038);
+            this.Controls.Add(this.fillByCmndToolStrip);
             this.Controls.Add(this.panelControl3);
             this.Controls.Add(mACNLabel);
             this.Controls.Add(this.mACNComboBox);
@@ -969,6 +996,8 @@ namespace NGANHANG
             ((System.ComponentModel.ISupportInitialize)(this.txtMaNV.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsGD_GUIRUT)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsGD_CHUYENTIEN)).EndInit();
+            this.fillByCmndToolStrip.ResumeLayout(false);
+            this.fillByCmndToolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1033,5 +1062,7 @@ namespace NGANHANG
         private System.Windows.Forms.BindingSource bdsGD_CHUYENTIEN;
         private DSTableAdapters.GD_CHUYENTIENTableAdapter gD_CHUYENTIENTableAdapter;
         private DevExpress.XtraEditors.SpinEdit txbTrangThaiXoa;
+        private System.Windows.Forms.ToolStrip fillByCmndToolStrip;
+        private System.Windows.Forms.ToolStripButton fillByCmndToolStripButton;
     }
 }

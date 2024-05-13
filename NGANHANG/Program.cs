@@ -112,7 +112,9 @@ namespace NGANHANG
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             frmChinh = new frmMain();   // frmChinh là một đối tượng của frmMain
+           
             Application.Run(new frmDangNhap());
             //Application.Run(new frmMain());
             //Tại sao không chạy thẳng frmMain mà phải tạo ra frm chính?

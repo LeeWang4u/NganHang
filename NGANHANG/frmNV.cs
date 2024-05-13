@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Collections;
+using System.Text;
+using System.Globalization;
 
 namespace NGANHANG
 {
@@ -92,7 +94,7 @@ namespace NGANHANG
                     Console.WriteLine(vitri);
                     MessageBox.Show("Lỗi xóa nhân viên. Bạn hãy xóa lại\n" + ex.Message, "",
                         MessageBoxButtons.OK);
-                    this.nhanVienTableAdapter.Fill(this.DS.NhanVien);   // Trường hợp xóa ở máy hiện tạo thành công nhưng xóa trên CSDL bị lỗi thì ta phải tải về lại máy hiện tại.
+                    this.nhanVienTableAdapter.FillByCmnd(this.DS.NhanVien);   // Trường hợp xóa ở máy hiện tạo thành công nhưng xóa trên CSDL bị lỗi thì ta phải tải về lại máy hiện tại.
                                                                         // bdsNhanVien.Position = bdsNhanVien.Find("MANV", manv); // đưa con trỏ nhảy đến vị trí manv đã xóa thất bại trước đó.
                     bdsNhanVien.Position = vitri;
                     return;
@@ -126,7 +128,7 @@ namespace NGANHANG
             // TODO: This line of code loads data into the 'dS.NhanVien' table. You can move, or remove it, as needed.
             this.nhanVienTableAdapter.Connection.ConnectionString = Program.connstr;    // gán thông tin đăng nhập vào các Adapter tương ứng để fill lấy thông tin đúng với thông tin đăng nhập.
             // TODO: This line of code loads data into the 'dS.NhanVien' table. You can move, or remove it, as needed.
-            this.nhanVienTableAdapter.Fill(this.DS.NhanVien);
+            this.nhanVienTableAdapter.FillByCmnd(this.DS.NhanVien);
 
             macn = ((DataRowView)bdsNhanVien[0])["MACN"].ToString();
             cmbChiNhanh.DataSource = Program.bds_dspm;  //sao chép dspm đã load ở form đăng nhập.
@@ -195,6 +197,9 @@ namespace NGANHANG
 
         private void btnLuu_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            txtHo.Text = CorrectString(txtHo.Text);
+            txtTen.Text = CorrectString(txtTen.Text);
+
             bool ketQua = kiemTraDuLieuDauVao();
             String cauTruyVanHoanTac = "" +
                                 "DELETE DBO.NHANVIEN " +
@@ -319,7 +324,7 @@ namespace NGANHANG
             }
 
             gcNhanVien.Enabled = true;
-            btnThem.Enabled = btnXoa.Enabled = btnHieuChinh.Enabled = btnTaiLai.Enabled  = btnPhucHoi.Enabled = btnThoat.Enabled = true;
+            btnThem.Enabled = btnXoa.Enabled = btnHieuChinh.Enabled = btnTaiLai.Enabled  = btnPhucHoi.Enabled = btnChuyenChiNhanh.Enabled = btnThoat.Enabled = true;
             btnLuu.Enabled =  false;
 
             panelControl3.Enabled = false;
@@ -328,6 +333,13 @@ namespace NGANHANG
 
         private void btnHieuChinh_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            String tenNV = ((DataRowView)bdsNhanVien[bdsNhanVien.Position])["TrangThaiXoa"].ToString();
+            if(tenNV == "1")
+            {
+                MessageBox.Show("Không thể sửa nhân viên không hoạt động", "",
+                     MessageBoxButtons.OK);
+                return;
+            }
             vitri = bdsNhanVien.Position;
             txtMaNV.Enabled = false;    //ta không cho phép sửa mã nhân viên.
             panelControl3.Enabled = true;
@@ -349,7 +361,7 @@ namespace NGANHANG
             gcNhanVien.Enabled = true;
             try
             {
-                this.nhanVienTableAdapter.Fill(this.DS.NhanVien);   // tải lại Nhân Viên.
+                this.nhanVienTableAdapter.FillByCmnd(this.DS.NhanVien);   // tải lại Nhân Viên.
             }
             catch (Exception ex)
             {
@@ -459,6 +471,13 @@ namespace NGANHANG
                 return false;
             }
 
+            if(txtCMND.Text.Trim().Length < 9)
+            {
+                MessageBox.Show("CMND Phải đủ 9 số", "Thông báo", MessageBoxButtons.OK);
+                txtCMND.Focus();
+                return false;
+            }
+
 
             /* if (!Regex.IsMatch(txtCMND.Text, @"^\d{9}$"))
              {
@@ -546,7 +565,7 @@ namespace NGANHANG
             System.Console.WriteLine(cauTruyVanHoanTac);
 
             int n = Program.ExecSqlNonQuery(cauTruyVanHoanTac);
-            this.nhanVienTableAdapter.Fill(this.DS.NhanVien);
+            this.nhanVienTableAdapter.FillByCmnd(this.DS.NhanVien);
             string m = undoList.Pop().ToString();
             vitri = bdsNhanVien.Find("MANV",m );
             //bdsNhanVien.Position = vitri + 1; // đưa con trỏ nhảy đến vị trí manv đã xóa thất bại trước đó.
@@ -578,7 +597,7 @@ namespace NGANHANG
             else
             {
                 this.nhanVienTableAdapter.Connection.ConnectionString = Program.connstr;    // gán thông tin đăng nhập vào các Adapter tương ứng để fill lấy thông tin đúng với thông tin đăng nhập.
-                this.nhanVienTableAdapter.Fill(this.DS.NhanVien);
+                this.nhanVienTableAdapter.FillByCmnd(this.DS.NhanVien);
                 this.gD_CHUYENTIENTableAdapter.Connection.ConnectionString = Program.connstr;
                 this.gD_CHUYENTIENTableAdapter.Fill(this.DS.GD_CHUYENTIEN);
                 this.gD_GOIRUTTableAdapter.Connection.ConnectionString = Program.connstr;
@@ -613,7 +632,7 @@ namespace NGANHANG
 
             CNN.ShowDialog(this);
 
-            this.nhanVienTableAdapter.Fill(this.DS.NhanVien);
+            this.nhanVienTableAdapter.FillByCmnd(this.DS.NhanVien);
             CNN.Close();
 
         }
@@ -621,6 +640,97 @@ namespace NGANHANG
         private void panelControl3_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtCMND_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && txtCMND.Text.Length < 9)
+            {
+                e.Handled = true;
+            }
+            if ( txtCMND.Text.Trim().Length > 8 && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; // Ngăn không cho thêm ký tự nếu đã đạt tới giới hạn
+            }
+        }
+
+        private void txtSDT_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+            if (txtSDT.Text.Trim().Length > 9 && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; // Ngăn không cho thêm ký tự nếu đã đạt tới giới hạn
+            }
+        }
+
+        
+        private void txtHo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            /*
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+            if (txtHo.Text.Trim().Length > 39 && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; // Ngăn không cho thêm ký tự nếu đã đạt tới giới hạn
+            }
+            */
+        }
+        
+
+        private void txtTen_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+            if (txtTen.Text.Trim().Length > 9 && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; // Ngăn không cho thêm ký tự nếu đã đạt tới giới hạn
+            }
+        }
+
+        private void fillByCmndToolStripButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.nhanVienTableAdapter.FillByCmnd(this.DS.NhanVien);
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        static string CorrectString(string input)
+        {
+            TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+            string[] words = input.Split(' '); // Tách chuỗi thành các từ
+            StringBuilder result = new StringBuilder();
+
+            foreach (string word in words)
+            {
+                // Sửa chữ cái đầu tiên của mỗi từ thành chữ hoa, và chữ cái còn lại thành chữ thường
+                string correctedWord = textInfo.ToTitleCase(word.ToLower());
+                result.Append(correctedWord).Append(" ");
+            }
+
+            // Loại bỏ khoảng trắng ở cuối chuỗi
+            return result.ToString().TrimEnd();
         }
     }
 }

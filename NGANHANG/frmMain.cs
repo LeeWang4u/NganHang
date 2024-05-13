@@ -79,6 +79,8 @@ namespace NGANHANG
         // btn dangxuat
         private void barButtonItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            //this.Hide();
+          
             try
             {
                 Program.servername = "";
@@ -103,10 +105,19 @@ namespace NGANHANG
                 }
                 else
                 {
+                    // if (this.Visible)
+                    // {
+                    // Nếu đang hiển thị, ẩn form hiện tại
+                    //   
+                    // }
+
+          
+                    this.Visible = false;
                     frmDangNhap form = new frmDangNhap();
                     //form.MdiParent = this;
-                   // Program.frmChinh.Close();
-                    form.ShowDialog();
+                    // Program.frmChinh.Close();
+                     form.ShowDialog();
+                   
                     this.Close();
                 }
                 //rib_BaoCao.Visible = rib_DanhMuc.Visible = rib_NghiepVu.Visible = false;

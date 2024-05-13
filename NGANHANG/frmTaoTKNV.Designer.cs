@@ -32,6 +32,10 @@ namespace NGANHANG
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label mANVLabel;
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.btnThoat = new System.Windows.Forms.Button();
+            this.btnTaoTK = new System.Windows.Forms.Button();
+            this.txtMatKhau = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtMaNV = new DevExpress.XtraEditors.TextEdit();
             this.nhanVienBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.DS = new NGANHANG.DS();
@@ -49,10 +53,6 @@ namespace NGANHANG
             this.colTrangThaiXoa = new DevExpress.XtraGrid.Columns.GridColumn();
             this.nhanVienTableAdapter = new NGANHANG.DSTableAdapters.NhanVienTableAdapter();
             this.tableAdapterManager = new NGANHANG.DSTableAdapters.TableAdapterManager();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtMatKhau = new System.Windows.Forms.TextBox();
-            this.btnTaoTK = new System.Windows.Forms.Button();
-            this.btnThoat = new System.Windows.Forms.Button();
             mANVLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
@@ -88,6 +88,46 @@ namespace NGANHANG
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(1071, 280);
             this.panelControl1.TabIndex = 0;
+            // 
+            // btnThoat
+            // 
+            this.btnThoat.Font = new System.Drawing.Font("Tahoma", 13F);
+            this.btnThoat.Location = new System.Drawing.Point(536, 170);
+            this.btnThoat.Name = "btnThoat";
+            this.btnThoat.Size = new System.Drawing.Size(206, 43);
+            this.btnThoat.TabIndex = 5;
+            this.btnThoat.Text = "Thoát";
+            this.btnThoat.UseVisualStyleBackColor = true;
+            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
+            // 
+            // btnTaoTK
+            // 
+            this.btnTaoTK.Font = new System.Drawing.Font("Tahoma", 13F);
+            this.btnTaoTK.Location = new System.Drawing.Point(253, 170);
+            this.btnTaoTK.Name = "btnTaoTK";
+            this.btnTaoTK.Size = new System.Drawing.Size(200, 43);
+            this.btnTaoTK.TabIndex = 4;
+            this.btnTaoTK.Text = "Tạo Tài Khoản";
+            this.btnTaoTK.UseVisualStyleBackColor = true;
+            this.btnTaoTK.Click += new System.EventHandler(this.btnTaoTK_Click);
+            // 
+            // txtMatKhau
+            // 
+            this.txtMatKhau.Font = new System.Drawing.Font("Tahoma", 13F);
+            this.txtMatKhau.Location = new System.Drawing.Point(364, 92);
+            this.txtMatKhau.Name = "txtMatKhau";
+            this.txtMatKhau.Size = new System.Drawing.Size(147, 34);
+            this.txtMatKhau.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 13F);
+            this.label1.Location = new System.Drawing.Point(248, 95);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(112, 27);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Mật Khẩu:";
             // 
             // txtMaNV
             // 
@@ -241,46 +281,6 @@ namespace NGANHANG
             this.tableAdapterManager.TaiKhoanTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = NGANHANG.DSTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 13F);
-            this.label1.Location = new System.Drawing.Point(248, 95);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(112, 27);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Mật Khẩu:";
-            // 
-            // txtMatKhau
-            // 
-            this.txtMatKhau.Font = new System.Drawing.Font("Tahoma", 13F);
-            this.txtMatKhau.Location = new System.Drawing.Point(364, 92);
-            this.txtMatKhau.Name = "txtMatKhau";
-            this.txtMatKhau.Size = new System.Drawing.Size(147, 34);
-            this.txtMatKhau.TabIndex = 3;
-            // 
-            // btnTaoTK
-            // 
-            this.btnTaoTK.Font = new System.Drawing.Font("Tahoma", 13F);
-            this.btnTaoTK.Location = new System.Drawing.Point(253, 170);
-            this.btnTaoTK.Name = "btnTaoTK";
-            this.btnTaoTK.Size = new System.Drawing.Size(200, 43);
-            this.btnTaoTK.TabIndex = 4;
-            this.btnTaoTK.Text = "Tạo Tài Khoản";
-            this.btnTaoTK.UseVisualStyleBackColor = true;
-            this.btnTaoTK.Click += new System.EventHandler(this.btnTaoTK_Click);
-            // 
-            // btnThoat
-            // 
-            this.btnThoat.Font = new System.Drawing.Font("Tahoma", 13F);
-            this.btnThoat.Location = new System.Drawing.Point(536, 170);
-            this.btnThoat.Name = "btnThoat";
-            this.btnThoat.Size = new System.Drawing.Size(206, 43);
-            this.btnThoat.TabIndex = 5;
-            this.btnThoat.Text = "Thoát";
-            this.btnThoat.UseVisualStyleBackColor = true;
-            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
-            // 
             // frmTaoTKNV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -289,7 +289,7 @@ namespace NGANHANG
             this.Controls.Add(this.panelControl2);
             this.Controls.Add(this.panelControl1);
             this.Name = "frmTaoTKNV";
-            this.Text = "frmTaoTKNV";
+            this.Text = "Tạo tài khoản nhan viên";
             this.Load += new System.EventHandler(this.frmTaoTKNV_Load);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);

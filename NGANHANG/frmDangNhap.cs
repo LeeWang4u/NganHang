@@ -30,6 +30,13 @@ namespace NGANHANG
             InitializeComponent();
         }
 
+        private Form CheckExists(Type ftype)
+        {
+            foreach (Form f in this.MdiChildren)
+                if (f.GetType() == ftype)
+                    return f;   //nếu frmMain đã tồn tại thì trả về f, không thì trả về null.
+            return null;
+        }
         public static int KetNoi_CSDLGOC()
         {
             if (conn_publisher != null && conn_publisher.State == System.Data.ConnectionState.Open)
@@ -88,6 +95,7 @@ namespace NGANHANG
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
+            Form frm = this.CheckExists(typeof(frmMain));
             if (txbTaiKhoan.Text.Trim() == "" || txbMatKhau.Text.Trim() == "")
             {    // hàm Trim để xóa khoảng trắng 2 bên.
                 MessageBox.Show("Login name và mật mā không được trống", "", MessageBoxButtons.OK);
@@ -132,9 +140,13 @@ namespace NGANHANG
             Program.frmChinh.MaNV.Text = "Mã NV = " + Program.username;
             Program.frmChinh.HoTen.Text = "Họ tên = " + Program.mHoten;
             Program.frmChinh.Nhom.Text = "Nhóm = " + Program.mGroup;
-            this.Visible = false;
-           // Program.frmChinh.HienThiMenu();
-            Program.frmChinh.ShowDialog();
+            //this.Visible = false;
+            this.Hide();
+            // Program.frmChinh.HienThiMenu();
+            // this.Close();
+            frmMain form = new frmMain();
+            form.ShowDialog();
+           //    Program.frmChinh.ShowDialog();
             Close();
            
         }

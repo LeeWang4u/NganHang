@@ -51,6 +51,9 @@ namespace NGANHANG
             this.btnGuiTien = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.txtThanhChuGoc = new System.Windows.Forms.Label();
+            this.txtThanhChuChuyen = new System.Windows.Forms.Label();
+            this.txtThanhChuGR = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
@@ -61,6 +64,7 @@ namespace NGANHANG
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.txtThanhChuGoc);
             this.panelControl1.Controls.Add(this.btnKT);
             this.panelControl1.Controls.Add(this.txtSoDu);
             this.panelControl1.Controls.Add(this.txtHoTen);
@@ -69,7 +73,7 @@ namespace NGANHANG
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1115, 151);
+            this.panelControl1.Size = new System.Drawing.Size(1142, 151);
             this.panelControl1.TabIndex = 0;
             // 
             // btnKT
@@ -105,10 +109,12 @@ namespace NGANHANG
             // 
             // txbSTK
             // 
+            this.txbSTK.Font = new System.Drawing.Font("Tahoma", 12F);
             this.txbSTK.Location = new System.Drawing.Point(171, 38);
             this.txbSTK.Name = "txbSTK";
-            this.txbSTK.Size = new System.Drawing.Size(209, 23);
+            this.txbSTK.Size = new System.Drawing.Size(209, 32);
             this.txbSTK.TabIndex = 12;
+            this.txbSTK.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbSTK_KeyPress);
             // 
             // label6
             // 
@@ -122,6 +128,7 @@ namespace NGANHANG
             // 
             // panelControl2
             // 
+            this.panelControl2.Controls.Add(this.txtThanhChuChuyen);
             this.panelControl2.Controls.Add(this.txtHoTenNhan);
             this.panelControl2.Controls.Add(this.txtHoTenNguoiNhan);
             this.panelControl2.Controls.Add(this.btnXacNhan);
@@ -134,7 +141,7 @@ namespace NGANHANG
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl2.Location = new System.Drawing.Point(0, 151);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(566, 508);
+            this.panelControl2.Size = new System.Drawing.Size(893, 519);
             this.panelControl2.TabIndex = 1;
             // 
             // txtHoTenNhan
@@ -160,7 +167,7 @@ namespace NGANHANG
             // btnXacNhan
             // 
             this.btnXacNhan.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.btnXacNhan.Location = new System.Drawing.Point(156, 351);
+            this.btnXacNhan.Location = new System.Drawing.Point(171, 365);
             this.btnXacNhan.Name = "btnXacNhan";
             this.btnXacNhan.Size = new System.Drawing.Size(152, 45);
             this.btnXacNhan.TabIndex = 8;
@@ -181,10 +188,13 @@ namespace NGANHANG
             // 
             // txtSoTienChuyen
             // 
-            this.txtSoTienChuyen.Location = new System.Drawing.Point(156, 278);
+            this.txtSoTienChuyen.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.txtSoTienChuyen.Location = new System.Drawing.Point(156, 271);
             this.txtSoTienChuyen.Name = "txtSoTienChuyen";
-            this.txtSoTienChuyen.Size = new System.Drawing.Size(209, 23);
+            this.txtSoTienChuyen.Size = new System.Drawing.Size(209, 32);
             this.txtSoTienChuyen.TabIndex = 4;
+            this.txtSoTienChuyen.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSoTienChuyen_KeyPress);
+            this.txtSoTienChuyen.Leave += new System.EventHandler(this.txtSoTienChuyen_Leave);
             // 
             // label4
             // 
@@ -198,10 +208,12 @@ namespace NGANHANG
             // 
             // txtSTKNhan
             // 
-            this.txtSTKNhan.Location = new System.Drawing.Point(196, 104);
+            this.txtSTKNhan.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.txtSTKNhan.Location = new System.Drawing.Point(196, 100);
             this.txtSTKNhan.Name = "txtSTKNhan";
-            this.txtSTKNhan.Size = new System.Drawing.Size(209, 23);
+            this.txtSTKNhan.Size = new System.Drawing.Size(209, 32);
             this.txtSTKNhan.TabIndex = 2;
+            this.txtSTKNhan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSTKNhan_KeyPress);
             // 
             // label3
             // 
@@ -225,24 +237,28 @@ namespace NGANHANG
             // 
             // panelControl3
             // 
+            this.panelControl3.Controls.Add(this.txtThanhChuGR);
             this.panelControl3.Controls.Add(this.txtSoTien);
             this.panelControl3.Controls.Add(this.btnRutTien);
             this.panelControl3.Controls.Add(this.btnGuiTien);
             this.panelControl3.Controls.Add(this.label5);
             this.panelControl3.Controls.Add(this.label2);
             this.panelControl3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl3.Location = new System.Drawing.Point(566, 151);
+            this.panelControl3.Location = new System.Drawing.Point(893, 151);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(549, 508);
+            this.panelControl3.Size = new System.Drawing.Size(249, 519);
             this.panelControl3.TabIndex = 2;
             this.panelControl3.Paint += new System.Windows.Forms.PaintEventHandler(this.panelControl3_Paint);
             // 
             // txtSoTien
             // 
-            this.txtSoTien.Location = new System.Drawing.Point(156, 159);
+            this.txtSoTien.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.txtSoTien.Location = new System.Drawing.Point(156, 155);
             this.txtSoTien.Name = "txtSoTien";
-            this.txtSoTien.Size = new System.Drawing.Size(209, 23);
+            this.txtSoTien.Size = new System.Drawing.Size(209, 32);
             this.txtSoTien.TabIndex = 6;
+            this.txtSoTien.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSoTien_KeyPress);
+            this.txtSoTien.Leave += new System.EventHandler(this.txtSoTien_Leave);
             // 
             // btnRutTien
             // 
@@ -287,11 +303,41 @@ namespace NGANHANG
             this.label2.Text = "GỬI RÚT TIỀN";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
+            // txtThanhChuGoc
+            // 
+            this.txtThanhChuGoc.AutoSize = true;
+            this.txtThanhChuGoc.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.txtThanhChuGoc.Location = new System.Drawing.Point(749, 97);
+            this.txtThanhChuGoc.Name = "txtThanhChuGoc";
+            this.txtThanhChuGoc.Size = new System.Drawing.Size(111, 24);
+            this.txtThanhChuGoc.TabIndex = 14;
+            this.txtThanhChuGoc.Text = "Thành chữ:";
+            // 
+            // txtThanhChuChuyen
+            // 
+            this.txtThanhChuChuyen.AutoSize = true;
+            this.txtThanhChuChuyen.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.txtThanhChuChuyen.Location = new System.Drawing.Point(21, 319);
+            this.txtThanhChuChuyen.Name = "txtThanhChuChuyen";
+            this.txtThanhChuChuyen.Size = new System.Drawing.Size(111, 24);
+            this.txtThanhChuChuyen.TabIndex = 15;
+            this.txtThanhChuChuyen.Text = "Thành chữ:";
+            // 
+            // txtThanhChuGR
+            // 
+            this.txtThanhChuGR.AutoSize = true;
+            this.txtThanhChuGR.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.txtThanhChuGR.Location = new System.Drawing.Point(39, 208);
+            this.txtThanhChuGR.Name = "txtThanhChuGR";
+            this.txtThanhChuGR.Size = new System.Drawing.Size(111, 24);
+            this.txtThanhChuGR.TabIndex = 16;
+            this.txtThanhChuGR.Text = "Thành chữ:";
+            // 
             // frmGiaoDich
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1115, 659);
+            this.ClientSize = new System.Drawing.Size(1142, 670);
             this.Controls.Add(this.panelControl3);
             this.Controls.Add(this.panelControl2);
             this.Controls.Add(this.panelControl1);
@@ -335,5 +381,8 @@ namespace NGANHANG
         private System.Windows.Forms.Label txtHoTen;
         private System.Windows.Forms.TextBox txbSTK;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label txtThanhChuGoc;
+        private System.Windows.Forms.Label txtThanhChuChuyen;
+        private System.Windows.Forms.Label txtThanhChuGR;
     }
 }
