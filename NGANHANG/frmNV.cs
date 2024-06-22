@@ -148,14 +148,14 @@ namespace NGANHANG
               //  btnThem.Enabled = btnHieuChinh.Enabled = btnLuu.Enabled = btnXoa.Enabled = btnPhucHoi.Enabled = true;
             }
             panelControl3.Enabled = false;
-           // string strLenh = "EXEC [SP_MaxMANV] '" + "0" + "'";
-
-            
-               // checkMaNV = Program.ExecSqlDataReader(strLenh);
-             //   checkMaNV.Read();
-          //  System.Console.WriteLine(checkMaNV.GetString(0));
+            // string strLenh = "EXEC [SP_MaxMANV] '" + "0" + "'";
 
 
+            // checkMaNV = Program.ExecSqlDataReader(strLenh);
+            //   checkMaNV.Read();
+            //  System.Console.WriteLine(checkMaNV.GetString(0));
+
+            gridView1.OptionsBehavior.Editable = false;
 
 
         }
@@ -628,8 +628,9 @@ namespace NGANHANG
             String ho = ((DataRowView)bdsNhanVien[bdsNhanVien.Position])["HO"].ToString();
             String ten = ((DataRowView)bdsNhanVien[bdsNhanVien.Position])["TEN"].ToString();
             String hoten = ho + " " + ten;
-            frmChuyenChiNhanh CNN = new frmChuyenChiNhanh(tenNV, cmnd,maCN, hoten, MaNVC);
-
+            //frmChuyenChiNhanh CNN = new frmChuyenChiNhanh(tenNV, cmnd,maCN, hoten, MaNVC);
+            // frmTaoTK CNN = new frmTaoTK();
+            frmCCN CNN = new frmCCN(tenNV, cmnd, maCN, hoten, MaNVC);
             CNN.ShowDialog(this);
 
             this.nhanVienTableAdapter.FillByCmnd(this.DS.NhanVien);

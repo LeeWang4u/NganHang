@@ -59,6 +59,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DS.xsd</DependentUpon>
     </Compile>
+    <Compile Include="frmCCN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCCN.Designer.cs">
+      <DependentUpon>frmCCN.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmChuyenChiNhanh.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +104,9 @@
     <Compile Include="Lib\DbConnection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmCCN.resx">
+      <DependentUpon>frmCCN.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmChuyenChiNhanh.resx">
       <DependentUpon>frmChuyenChiNhanh.cs</DependentUpon>
     </EmbeddedResource>

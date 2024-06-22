@@ -67,6 +67,12 @@ namespace NGANHANG
             Program.bds_dspm = new BindingSource();
             Program.bds_dspm.DataSource = dt;   // ta gán dspm đó cho bds_dspm ở Program.    // Liên kết số liệu bds_dspm với cmd
 
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                Program.data[i, 0] = dt.Rows[i]["TENCN"].ToString();     // TENCN là tên cột chứa Tên chi nhánh
+                Program.data[i, 1] = dt.Rows[i]["TENSERVER"].ToString(); // TENSERVER là tên cột chứa Tên server
+            }
+
             cmbChiNhanh.DataSource = Program.bds_dspm;  // gán bds_dspm ở Program cho DataSource ở cmbChiNhanh. //
             cmbChiNhanh.DisplayMember = "TENCN"; cmbChiNhanh.ValueMember = "TENSERVER";
             cmbChiNhanh.DropDownStyle = ComboBoxStyle.DropDownList;

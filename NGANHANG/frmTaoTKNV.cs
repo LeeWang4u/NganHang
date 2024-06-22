@@ -41,6 +41,8 @@ namespace NGANHANG
 
             txtMaNV.Enabled = false;
 
+            gridView1.OptionsBehavior.Editable = false;
+
         }
 
         private void btnTaoTK_Click(object sender, EventArgs e)
@@ -51,16 +53,19 @@ namespace NGANHANG
                 txtMatKhau.Focus();
                 return;
             }
-          //  /*
-            string cmdText = "sp_tao_tai_khoan_nhan_vien";
+            //  /*
+            //string cmdText = "sp_tao_tai_khoan_nhan_vien";
+            string cmdText = "sp_create_account";
             SqlParameter parameterUsername = new SqlParameter("@USERNAME", txtMaNV.Text.Trim());
             SqlParameter parameterLoginname = new SqlParameter("@LGNAME", txtMaNV.Text.Trim());
             SqlParameter parameterPassword = new SqlParameter("@PASS", txtMatKhau.Text);
             SqlParameter parameterRole = new SqlParameter("@ROLE", Program.mGroup);
             try
             {
-                Lib.DbConnection.ExecuteNonQuery(cmdText, CommandType.StoredProcedure,
-                    parameterUsername, parameterLoginname, parameterPassword, parameterRole);
+                 Lib.DbConnection.ExecuteNonQuery(cmdText, CommandType.StoredProcedure,
+                   parameterUsername, parameterLoginname, parameterPassword, parameterRole);
+                //Lib.DbConnection.ExecuteNonQuery(cmdText, CommandType.StoredProcedure,
+               //    parameterUsername, parameterLoginname, parameterPassword);
                 MessageBox.Show("Tạo tài khoản thành công!");
             }
             catch (Exception ex)
