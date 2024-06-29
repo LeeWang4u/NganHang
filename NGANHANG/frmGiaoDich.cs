@@ -58,57 +58,6 @@ namespace NGANHANG
 
 
 
-    /*
-    static string[] ones = { "", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín" };
-    static string[] teens = { "", "mười", "mười một", "mười hai", "mười ba", "mười bốn", "mười lăm", "mười sáu", "mười bảy", "mười tám", "mười chín" };
-    static string[] tens = { "", "mười", "hai mươi", "ba mươi", "bốn mươi", "năm mươi", "sáu mươi", "bảy mươi", "tám mươi", "chín mươi" };
-    static string[] thousands = { "", "nghìn", "triệu", "tỷ" };
-
-    static string ConvertNumberToWords(int number)
-    {
-        if (number == 0)
-            return "không";
-
-        string words = "";
-
-        for (int i = 0; number > 0; i++)
-        {
-            if (number % 1000 != 0)
-                words = $"{ConvertThreeDigitNumberToWords(number % 1000)} {thousands[i]} {words}";
-            number /= 1000;
-        }
-
-        return words.Trim();
-    }
-
-    static string ConvertThreeDigitNumberToWords(int number)
-    {
-        string word = "";
-
-        if (number >= 100)
-        {
-            word += ones[number / 100] + " trăm ";
-            number %= 100;
-        }
-
-        if (number >= 20)
-        {
-            word += tens[number / 10] + " ";
-            number %= 10;
-        }
-
-        if (number >= 10)
-        {
-            word += teens[number - 10] + " ";
-            number = 0;
-        }
-
-        if (number > 0)
-            word += ones[number] + " ";
-
-        return word.Trim();
-    } 
-    */
     public frmGiaoDich()
         {
             InitializeComponent();
@@ -145,7 +94,12 @@ namespace NGANHANG
         {
             reader = Program.ExecSqlDataReader($"EXEC SP_KiemTraSTK '{txbSTK.Text.Trim()}'");
             if (reader == null)
+            {
+                panelControl2.Enabled = false;
+                panelControl3.Enabled = false;
                 return;
+            }
+                
             string hoTen  ="";
             string soDu = "";
             while (reader.Read())

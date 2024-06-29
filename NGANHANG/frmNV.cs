@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Collections;
-using System.Text;
 using System.Globalization;
 
 namespace NGANHANG
@@ -38,6 +37,7 @@ namespace NGANHANG
         // btnxoa
         private void barButtonItem2_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            Console.WriteLine(txtDiaChi.Text);
             String tenNV = ((DataRowView)bdsNhanVien[bdsNhanVien.Position])["MANV"].ToString();
             if (tenNV == Program.username)
             {
@@ -62,7 +62,9 @@ namespace NGANHANG
                 string.Format("INSERT INTO DBO.NHANVIEN( [MANV],[HO],[TEN],[CMND],[DIACHI],[PHAI],[SODT],[MACN],[TrangThaiXoa])" +
             "VALUES('{0}','{1}','{2}','{3}','{4}', '{5}','{6}', '{7}',{8})", txtMaNV.Text, txtHo.Text, txtTen.Text,txtCMND.Text, txtDiaChi.Text, cmbGioiTinh.Text, txtSDT.Text, macn, "0");
 
-            Console.WriteLine(cauTruyVanHoanTac);
+           // Console.WriteLine(cauTruyVanHoanTac);
+
+            
             undoList.Push(tenNV);
             undoList.Push(cauTruyVanHoanTac);
             btnPhucHoi.Enabled = true;
@@ -77,16 +79,16 @@ namespace NGANHANG
                     bdsNhanVien.RemoveCurrent();  // Xóa trên máy hiện tại trước, sau đó mới xóa trên CSDL sau.
                     this.nhanVienTableAdapter.Connection.ConnectionString = Program.connstr;
                     this.nhanVienTableAdapter.Update(this.DS.NhanVien); // xóa dữ liệu đó ở CSDL.
-
-                 /*   try
+                    
+                    try
                     {   
-                        Program.ExecSqlNonQuery($"EXEC sp_xoa_tai_khoan_nhan_vien '{manv}'");
+                        Program.ExecSqlNonQuery($"EXEC SP_XoaLogin '{tenNV}', '{tenNV}'");
                     }
                     catch {
-                        Console.WriteLine(manv);
+                        Console.WriteLine(tenNV);
                     }
-                 */
-                    // Gọi sp xóa tài khoản login nếu có
+                 
+                   
                 }
                 catch (Exception ex)    // Trong thực tế sẽ có lỗi phát sinh mà thầy Thư cũng không biết.
                 {
@@ -197,6 +199,7 @@ namespace NGANHANG
 
         private void btnLuu_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            Console.WriteLine(txtDiaChi.Text);
             txtHo.Text = CorrectString(txtHo.Text);
             txtTen.Text = CorrectString(txtTen.Text);
 
@@ -231,11 +234,12 @@ namespace NGANHANG
 
             if (check_Luu_HieuChinh == 1)    // Nếu chọn btn thêm thì ta chạy SP kiểm tra có trùng mã nv hay không.
             {
-                string strLenh = "EXEC [SP_kiemtraNV] '" + txtMaNV.Text + "'";
-           //     string strLenh = "DECLARE	@return_value int" +
-             //                   "EXEC @return_value = [dbo].[sp_TimNV]" +
-               //                        "  @X ='" + txtMaNV.Text + "'"+
-                 //               "SELECT  'Return Value' = @return_value";
+                string strLenh = "EXEC [SP_KiemTraCMNDNhanVien] '" + txtCMND.Text + "'";
+                // string strLenh = "EXEC [SP_kiemtraNV] '" + txtMaNV.Text + "'";
+                //     string strLenh = "DECLARE	@return_value int" +
+                //                   "EXEC @return_value = [dbo].[sp_TimNV]" +
+                //                        "  @X ='" + txtMaNV.Text + "'"+
+                //               "SELECT  'Return Value' = @return_value";
                 try
                 {
                     checkMaNV = Program.ExecSqlDataReader(strLenh);
@@ -243,8 +247,8 @@ namespace NGANHANG
                     System.Console.WriteLine(checkMaNV.GetBoolean(0));
                     if (checkMaNV.GetBoolean(0))   //đã tồn tại cmnd trùng.
                     {
-                        bdsNhanVien.CancelEdit();
-                        MessageBox.Show("Mã nhân viên bị trùng.", "", MessageBoxButtons.OK);
+                       // bdsNhanVien.CancelEdit();
+                        MessageBox.Show("Không được trùng CMND.", "", MessageBoxButtons.OK);
                         txtMaNV.Focus();
                         checkMaNV.Close();
                         return;
@@ -354,6 +358,7 @@ namespace NGANHANG
 
         private void btnTaiLai_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            
             panelControl3.Enabled = false;
             btnThem.Enabled = btnXoa.Enabled = btnHieuChinh.Enabled = btnThoat.Enabled = btnChuyenChiNhanh.Enabled= true;
             btnLuu.Enabled = btnPhucHoi.Enabled = btnTaiLai.Enabled = true;
