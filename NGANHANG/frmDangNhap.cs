@@ -83,6 +83,7 @@ namespace NGANHANG
         {
             // TODO: This line of code loads data into the 'dS.ChiNhanh' table. You can move, or remove it, as needed.
             this.chiNhanhTableAdapter.Fill(this.dS.ChiNhanh);
+            txbMatKhau.PasswordChar = '*';
             if (KetNoi_CSDLGOC() == 0) return; // nếu hàm KetNoi_CSDLGOC() == 0 -> đăng nhập thất bại
             LayDSPM("SELECT * FROM Get_Subscribes");  // Lấy ra danh sách các phân mảnh từ Get_Subscribles.
             cmbChiNhanh.SelectedIndex = 1; cmbChiNhanh.SelectedIndex = 0;

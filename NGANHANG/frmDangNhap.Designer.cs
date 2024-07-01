@@ -74,7 +74,6 @@ namespace NGANHANG
             this.txbTaiKhoan.Name = "txbTaiKhoan";
             this.txbTaiKhoan.Size = new System.Drawing.Size(265, 34);
             this.txbTaiKhoan.TabIndex = 2;
-            this.txbTaiKhoan.Text = "NV03";
             // 
             // btnDangNhap
             // 
@@ -125,7 +124,6 @@ namespace NGANHANG
             this.txbMatKhau.Name = "txbMatKhau";
             this.txbMatKhau.Size = new System.Drawing.Size(265, 34);
             this.txbMatKhau.TabIndex = 7;
-            this.txbMatKhau.Text = "123";
             // 
             // cbKhachHang
             // 
