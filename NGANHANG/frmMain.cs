@@ -136,5 +136,17 @@ namespace NGANHANG
         {
 
         }
+
+        private void barButtonItem2_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form frm = this.CheckExists(typeof(Frpt_SaoKeTaiKhoanNganHang));
+            if (frm != null) frm.Activate();
+            else
+            {
+                Frpt_SaoKeTaiKhoanNganHang f = new Frpt_SaoKeTaiKhoanNganHang();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
     }
 }

@@ -177,6 +177,7 @@ namespace NGANHANG
             btnLuu.Enabled = btnTaiLai.Enabled = true;
             gcNhanVien.Enabled = false;
             check_Luu_HieuChinh = 1;
+            txtCMND.Enabled = true;
 
             string strLenh = "EXEC [SP_MaxMANV] '" + "0" + "'";
 
@@ -201,9 +202,8 @@ namespace NGANHANG
             txtTen.Text = CorrectString(txtTen.Text);
 
             bool ketQua = kiemTraDuLieuDauVao();
-            String cauTruyVanHoanTac = "" +
-                                "DELETE DBO.NHANVIEN " +
-                                "WHERE MANV = " + txtMaNV.Text.Trim();
+            String cauTruyVanHoanTac = "DELETE DBO.NHANVIEN " +
+                                "WHERE MANV = '" + txtMaNV.Text.Trim() + "'";
             DataRowView drv = ((DataRowView)bdsNhanVien[bdsNhanVien.Position]);
             String ho = drv["HO"].ToString();
             String ten = drv["TEN"].ToString();
@@ -260,10 +260,10 @@ namespace NGANHANG
                         this.nhanVienTableAdapter.Update(this.DS.NhanVien); // Update trên adapter có 3 nghĩa: vừa là insert, update, delete. Nó tùy vào tình huống cụ thể để đưa lệnh tương ứng.
                         MessageBox.Show("Thêm thành công!", "", MessageBoxButtons.OK);
                         checkMaNV.Close();
-                        
 
-                       // undoList.Push(cauTruyVanHoanTac);
-                       // btnPhucHoi.Enabled = true;
+                        undoList.Push(txtMaNV.Text.Trim());
+                        undoList.Push(cauTruyVanHoanTac);
+                        btnPhucHoi.Enabled = true;
 
                     }
                 }
@@ -342,6 +342,7 @@ namespace NGANHANG
             }
             vitri = bdsNhanVien.Position;
             txtMaNV.Enabled = false;    //ta không cho phép sửa mã nhân viên.
+            txtCMND.Enabled = false;
             panelControl3.Enabled = true;
             // btnThem.Enabled = btnXoa.Enabled = btnHieuChinh.Enabled =  btnThoat.Enabled = false;
             //btnLuu.Enabled = btnPhucHoi.Enabled = btnTaiLai.Enabled = true;
